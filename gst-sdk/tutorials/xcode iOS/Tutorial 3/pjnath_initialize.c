@@ -4,8 +4,10 @@
 #include <pjlib-util.h>
 #include <pjnath.h>
 #include <gst/gst.h>
+#include <assert.h>
 #include "stream.h"
 #include "login.h"
+#include "user_information.h"
 #include "gstpjnath.h"
 #include <unistd.h>
 
@@ -102,7 +104,7 @@ static pj_status_t handle_events(unsigned max_msec, unsigned *p_count,
     /* timer_heap_poll should never ever returns negative value, or otherwise
      * ioqueue_poll() will block forever!
      */
-    pj_assert(timeout.sec >= 0 && timeout.msec >= 0);
+    //pj_assert(timeout.sec >= 0 && timeout.msec >= 0);
     if (timeout.msec >= ICE_INFOR_SIZE) timeout.msec = 999;
     
     /* compare the value with the timeout to wait from timer, and use the
@@ -1055,7 +1057,7 @@ void establish_stun_with_master (Holder *data, char *masterId)
 
 	/* Initialize pjnath library */
 	status = holder_init(data);
-	assert(status == PJ_SUCCESS);
+	//assert(status == PJ_SUCCESS);
 	printf("\n ip: %s, port = %d \n", data->ice_cfg.stun.server.ptr,
          data->ice_cfg.stun.port);
     

@@ -1,5 +1,6 @@
 #include "stream.h"
 #include "login.h"
+#include "user_information.h"
 #include "gstreamer_utils.h"
 #include "pjnath_initialize.h"
 #include "gstpjnath.h"

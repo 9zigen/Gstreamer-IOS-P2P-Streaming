@@ -8,6 +8,7 @@
 
 #import "Login_ViewController.h"
 #import "Gstreamer_ViewController.h"
+#include "user_information.h"
 #include "login.h"
 
 #define LOGIN_WRONG_USERINPUT 0x00
@@ -53,6 +54,9 @@
 		case LOGIN_SUCCESSED: {
 			/* List available session */
             puts("Login success");
+            
+            /* Get username */
+            username = [usernameTF.text UTF8String];
             
 			char *result;
             char *sessionId;

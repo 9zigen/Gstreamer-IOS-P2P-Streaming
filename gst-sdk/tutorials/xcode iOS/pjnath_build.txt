@@ -1,0 +1,13 @@
+1. Download pjnath version 2.2.1
+
+2. Set your pjproject-2.2.1/pjlib/include/pj/config_site.h to the following:
+	#define PJ_CONFIG_IPHONE 1
+	#include <pj/config_site_sample.h>
+
+3. export DEVPATH=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer
+
+ARCH="-arch i386" CFLAGS="-O2 -m32 -mios-simulator-version-min=5.0" LDFLAGS="-O2 -m32 -mios-simulator-version-min=5.0" ./configure-iphone —prefix={install-output-folder}
+make dep && make clean && make && makestall
+
+4. Open pkg-config -> get link -> put into “Other Linker Flags” in Xcode
+   In “Library search path” enter lib of pjnath directory

@@ -1,4 +1,6 @@
 #include "xmlparser.h"
+#include "login.h"
+#include "user_information.h"
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <fcntl.h>

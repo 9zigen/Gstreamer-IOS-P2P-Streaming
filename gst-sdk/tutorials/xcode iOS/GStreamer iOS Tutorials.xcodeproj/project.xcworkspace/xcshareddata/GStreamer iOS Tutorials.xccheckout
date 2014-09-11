@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>3F41EAD5-E6AF-4493-938C-2259FC34A3C5</string>
+	<string>889748B4-4CBB-489A-B687-BDB834833C44</string>
 	<key>IDESourceControlProjectName</key>
 	<string>GStreamer iOS Tutorials</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>0F238F3F-14C2-4624-889E-BFD735005121</key>
-		<string>git://people.freedesktop.org/~slomo/gst-sdk-tutorials</string>
+		<key>EB4B55B6-AD7C-4901-945F-FA61CE827EE8</key>
+		<string>https://github.com/cxp1991/Gstreamer-IOS-P2P-Streaming.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>gst-sdk/tutorials/xcode iOS/GStreamer iOS Tutorials.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>0F238F3F-14C2-4624-889E-BFD735005121</key>
+		<key>EB4B55B6-AD7C-4901-945F-FA61CE827EE8</key>
 		<string>../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>git://people.freedesktop.org/~slomo/gst-sdk-tutorials</string>
+	<string>https://github.com/cxp1991/Gstreamer-IOS-P2P-Streaming.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>0F238F3F-14C2-4624-889E-BFD735005121</string>
+	<string>EB4B55B6-AD7C-4901-945F-FA61CE827EE8</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>0F238F3F-14C2-4624-889E-BFD735005121</string>
+			<string>EB4B55B6-AD7C-4901-945F-FA61CE827EE8</string>
 			<key>IDESourceControlWCCName</key>
 			<string>gst-sdk-tutorials</string>
 		</dict>

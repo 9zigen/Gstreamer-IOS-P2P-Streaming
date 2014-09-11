@@ -128,6 +128,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		24B6B68219C163BC000304BE /* user_information.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = user_information.h; sourceTree = "<group>"; };
 		24BA8B7119B81CC900B47927 /* Login_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login_ViewController.h; sourceTree = "<group>"; };
 		24BA8B7219B81CC900B47927 /* Login_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login_ViewController.m; sourceTree = "<group>"; };
 		24BA8B7519B8213500B47927 /* login.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = login.h; sourceTree = "<group>"; };
@@ -592,9 +593,11 @@
 				C6B6126517395CF2003FC410 /* Supporting Files */,
 				24BA8B7119B81CC900B47927 /* Login_ViewController.h */,
 				24BA8B7219B81CC900B47927 /* Login_ViewController.m */,
+				24B6B68219C163BC000304BE /* user_information.h */,
 			);
 			path = "Tutorial 3";
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		C6B6126517395CF2003FC410 /* Supporting Files */ = {
 			isa = PBXGroup;
@@ -1115,7 +1118,7 @@
 		C67B40F5172EBEA4008359CC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1183,7 +1186,7 @@
 		C67B40F6172EBEA4008359CC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1505,7 +1508,7 @@
 		C6B6128617395CF2003FC410 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1534,16 +1537,30 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
+					/Users/cxphong/Desktop/pjnath_lib/include,
 					"\"~/Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework/Headers\"",
-					"\"$(SRCROOT)/../../../../pjnath_lib/include\"",
 				);
 				INFOPLIST_FILE = "Tutorial 3/Tutorial 3-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../../../pjnath_lib/lib\"",
 					"$(inherited)",
-					/Users/cxphong/Desktop/pjnath_lib/lib,
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-I/Users/cxphong/Desktop/pjnath_lib/include",
+					"-DPJ_AUTOCONF=1",
+					"-O2",
+					"-m32",
+					"-mios-simulator-version-min=5.0",
+					"-DPJ_SDK_NAME=\"iPhoneSimulator7.1.sdk\"",
+					"-arch",
+					i386,
+					"-isysroot",
+					/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk,
+					"-DPJ_IS_BIG_ENDIAN=0",
+					"-DPJ_IS_LITTLE_ENDIAN=1",
+				);
 				OTHER_LDFLAGS = (
 					"-lresolv",
 					"-lstdc++",
@@ -1569,9 +1586,54 @@
 					QuartzCore,
 					"-framework",
 					AssetsLibrary,
+					"-lpjsua2-arm-apple-darwin9",
+					"-lstdc++",
+					"-lpjsua-arm-apple-darwin9",
+					"-lpjsip-ua-arm-apple-darwin9",
+					"-lpjsip-simple-arm-apple-darwin9",
+					"-lpjsip-arm-apple-darwin9",
+					"-lpjmedia-codec-arm-apple-darwin9",
+					"-lpjmedia-arm-apple-darwin9",
+					"-lpjmedia-videodev-arm-apple-darwin9",
+					"-lpjmedia-audiodev-arm-apple-darwin9",
+					"-lpjmedia-arm-apple-darwin9",
+					"-lpjnath-arm-apple-darwin9",
+					"-lpjlib-util-arm-apple-darwin9",
+					"-lsrtp-arm-apple-darwin9",
+					"-lresample-arm-apple-darwin9",
+					"-lgsmcodec-arm-apple-darwin9",
+					"-lspeex-arm-apple-darwin9",
+					"-lilbccodec-arm-apple-darwin9",
+					"-lg7221codec-arm-apple-darwin9",
+					"-lpj-arm-apple-darwin9",
+					"-lm",
+					"-lpthread",
+					"-framework",
+					CoreAudio,
+					"-framework",
+					CoreFoundation,
+					"-framework",
+					AudioToolbox,
+					"-framework",
+					CFNetwork,
+					"-framework",
+					UIKit,
+					"-framework",
+					UIKit,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					CoreMedia,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1580,7 +1642,7 @@
 		C6B6128717395CF2003FC410 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1596,22 +1658,36 @@
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tutorial 3/Tutorial 3-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
+					/Users/cxphong/Desktop/pjnath_lib/include,
 					"\"~/Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework/Headers\"",
-					"\"$(SRCROOT)/../../../../pjnath_lib/include\"",
 				);
 				INFOPLIST_FILE = "Tutorial 3/Tutorial 3-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../../../pjnath_lib/lib\"",
 					"$(inherited)",
-					/Users/cxphong/Desktop/pjnath_lib/lib,
 				);
-				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_CFLAGS = (
+					"-I/Users/cxphong/Desktop/pjnath_lib/include",
+					"-DPJ_AUTOCONF=1",
+					"-O2",
+					"-m32",
+					"-mios-simulator-version-min=5.0",
+					"-DPJ_SDK_NAME=\"iPhoneSimulator7.1.sdk\"",
+					"-arch",
+					i386,
+					"-isysroot",
+					/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk,
+					"-DPJ_IS_BIG_ENDIAN=0",
+					"-DPJ_IS_LITTLE_ENDIAN=1",
+				);
 				OTHER_LDFLAGS = (
 					"-lresolv",
 					"-lstdc++",
@@ -1637,9 +1713,54 @@
 					QuartzCore,
 					"-framework",
 					AssetsLibrary,
+					"-lpjsua2-arm-apple-darwin9",
+					"-lstdc++",
+					"-lpjsua-arm-apple-darwin9",
+					"-lpjsip-ua-arm-apple-darwin9",
+					"-lpjsip-simple-arm-apple-darwin9",
+					"-lpjsip-arm-apple-darwin9",
+					"-lpjmedia-codec-arm-apple-darwin9",
+					"-lpjmedia-arm-apple-darwin9",
+					"-lpjmedia-videodev-arm-apple-darwin9",
+					"-lpjmedia-audiodev-arm-apple-darwin9",
+					"-lpjmedia-arm-apple-darwin9",
+					"-lpjnath-arm-apple-darwin9",
+					"-lpjlib-util-arm-apple-darwin9",
+					"-lsrtp-arm-apple-darwin9",
+					"-lresample-arm-apple-darwin9",
+					"-lgsmcodec-arm-apple-darwin9",
+					"-lspeex-arm-apple-darwin9",
+					"-lilbccodec-arm-apple-darwin9",
+					"-lg7221codec-arm-apple-darwin9",
+					"-lpj-arm-apple-darwin9",
+					"-lm",
+					"-lpthread",
+					"-framework",
+					CoreAudio,
+					"-framework",
+					CoreFoundation,
+					"-framework",
+					AudioToolbox,
+					"-framework",
+					CFNetwork,
+					"-framework",
+					UIKit,
+					"-framework",
+					UIKit,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					CoreMedia,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
