@@ -97,7 +97,7 @@ char **parseDoc (char *docString, char *rootNode, char *childNode)
     int i = 0;
     char **result;
     int j;
-    
+
 	result = (char **)malloc(MAX_TAG*sizeof(char*));
     
 	for(j = 0; j < MAX_TAG; j++)
@@ -231,7 +231,7 @@ char *parse_peer_attribute (char *docString)
 	char *retValue;
 	int i;
 	xmlChar *out;
-    
+
 	retValue = (char *)calloc(1024, sizeof(char));
 	xpath = (xmlChar *)"//peerID";
 	doc = xmlParseDoc(docString);
@@ -275,11 +275,13 @@ void parse_xml_node_content (const char *docString, const char *node, char *out)
 	xmlChar *keyword;
 	xmlChar *docStr;
 	int i;
+
+    xmlInitParser();
     
 	docStr = (xmlChar *)calloc(1000, sizeof(xmlChar));
 	keyword = (xmlChar *)calloc(1000, sizeof(xmlChar));
 	xpath = (xmlChar *)calloc(1000, sizeof(xmlChar));
-    
+
 	sprintf(xpath, "//%s", node);
 	strncpy(docStr, docString, strlen(docString));
 	doc = xmlParseDoc(docStr);
@@ -306,8 +308,8 @@ void parse_xml_node_content (const char *docString, const char *node, char *out)
     
 	strncpy(out, keyword, strlen(keyword));
     
-	xmlFreeDoc(doc);
-	xmlCleanupParser();
-	xmlFree(keyword);
-	xmlFree(xpath);
+	//xmlFreeDoc(doc);
+	//xmlCleanupParser();
+	///xmlFree(keyword);
+	//xmlFree(xpath);
 }

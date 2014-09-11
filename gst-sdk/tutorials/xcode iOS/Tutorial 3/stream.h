@@ -5,10 +5,12 @@
 #include <pjlib.h>
 #include <pjlib-util.h>
 #include <pjnath.h>
+//#include <UIKit/UIView.h>
 
 /* Java class Tutorial3 reference */
 extern int isRpiReady;
 extern gboolean init_gstreamer_done; // 1: done, 0: not
+//extern UIView *ios_ui_video_view;
 
 /*
  * ICE data holder

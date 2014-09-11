@@ -7,7 +7,6 @@
 #include <assert.h>
 #include "stream.h"
 #include "login.h"
-#include "user_information.h"
 #include "gstpjnath.h"
 #include <unistd.h>
 
@@ -1043,7 +1042,7 @@ static void get_local_stun_info(Holder *data)
 
 void establish_stun_with_master (Holder *data, char *masterId)
 {
-	puts("establish_stun_with_master");
+	puts("+++++++++++establish_stun_with_master");
 	char *recBuf;
 	char *sendBuf;
 	char *destination;
@@ -1058,7 +1057,7 @@ void establish_stun_with_master (Holder *data, char *masterId)
 	/* Initialize pjnath library */
 	status = holder_init(data);
 	//assert(status == PJ_SUCCESS);
-	printf("\n ip: %s, port = %d \n", data->ice_cfg.stun.server.ptr,
+	printf("\n+++++++++++ip: %s, port = %d \n", data->ice_cfg.stun.server.ptr,
          data->ice_cfg.stun.port);
     
 	/* Get local stun information */
@@ -1074,21 +1073,22 @@ void establish_stun_with_master (Holder *data, char *masterId)
             masterId,
             data->local_info);
 	send(global_socket, sendBuf, strlen(sendBuf), 0);
-	printf("send: %s", sendBuf);
+    printf("\n\n\n\n  username = %s \n", username);
+	printf("+++++++++++send: %s\n", sendBuf);
     
 	/* Receive Rpi stun information */
 	while(1) {
 		if (recv(global_socket, recBuf, ICE_INFOR_SIZE, 0)) {
-			printf("receive: %s", recBuf);
+			printf("+++++++++++receive: %s\n", recBuf);
             
 			/* Destination is me? */
 			parse_xml_node_content(recBuf, "to", destination);
-			printf("to: %s", destination);
+			printf("+++++++++++to: %s\n", destination);
 			if(strcmp(destination, username)) continue;
             
 			/* Rpi accept connection? */
 			parse_xml_node_content(recBuf, "accept", acception);
-			printf("accept: %s", acception);
+			printf("+++++++++++accept: %s\n", acception);
 			if(strcmp(acception, "true")) continue;
             
 			/* Get STUN */

@@ -1,3 +1,6 @@
+#include <UIKit/UIView.h>
+#include <gst/gst.h>
+extern UIView *ios_ui_video_view;
 /*
  * Gstreamer data holder
  */

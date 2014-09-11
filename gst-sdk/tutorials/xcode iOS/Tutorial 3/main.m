@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
     @autoreleasepool {
         gst_ios_init();
-        puts("gstreamer init done");
+        puts("+++++++++++gstreamer init done");
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }

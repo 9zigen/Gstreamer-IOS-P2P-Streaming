@@ -58,6 +58,9 @@ void *app_function (void *userdata)
 	return NULL;
 }
 
+/*
+ * Call before app exit
+ */
 void close_server_socket ()
 {
 	shutdown(global_socket, 2);
@@ -65,7 +68,7 @@ void close_server_socket ()
 }
 
 /*
- Call when app exits
+ * Call before app exits
  */
 void out_of_current_session()
 {

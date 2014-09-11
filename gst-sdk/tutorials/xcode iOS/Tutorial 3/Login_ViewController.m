@@ -8,7 +8,6 @@
 
 #import "Login_ViewController.h"
 #import "Gstreamer_ViewController.h"
-#include "user_information.h"
 #include "login.h"
 
 #define LOGIN_WRONG_USERINPUT 0x00
@@ -56,7 +55,9 @@
             puts("Login success");
             
             /* Get username */
-            username = [usernameTF.text UTF8String];
+            username = (char *)calloc(100, sizeof(char));
+            strncpy(username, [usernameTF.text UTF8String], strlen([usernameTF.text UTF8String]));
+            puts(username);
             
 			char *result;
             char *sessionId;

@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		24BA8B7319B81CC900B47927 /* Login_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7219B81CC900B47927 /* Login_ViewController.m */; };
-		24BA8B7719B8224A00B47927 /* login.c in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7619B8224A00B47927 /* login.c */; };
-		24BA8B7A19BAABA200B47927 /* xmlparser.c in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7919BAABA200B47927 /* xmlparser.c */; };
-		24BDBCA819BC59FB00D8CAC9 /* receive_video.c in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBCA719BC59FB00D8CAC9 /* receive_video.c */; };
-		24BDBF6A19BCAA6B00D8CAC9 /* gstreamer_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF6919BCAA6B00D8CAC9 /* gstreamer_utils.c */; };
-		24BDBF6D19BCAA9000D8CAC9 /* pjnath_initialize.c in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF6C19BCAA9000D8CAC9 /* pjnath_initialize.c */; };
-		24BDBF7119BCAC4700D8CAC9 /* stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF7019BCAC4700D8CAC9 /* stream.c */; };
-		24BDBF7519BCAE8500D8CAC9 /* gstpjnath.c in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF7419BCAE8500D8CAC9 /* gstpjnath.c */; };
-		24BDBF7719BCAE9700D8CAC9 /* gstpjnathsink.c in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF7619BCAE9700D8CAC9 /* gstpjnathsink.c */; };
-		24BDBF7919BCAEA800D8CAC9 /* gdtpjnathsrc.c in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF7819BCAEA800D8CAC9 /* gdtpjnathsrc.c */; };
+		24BA8B7719B8224A00B47927 /* login.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7619B8224A00B47927 /* login.m */; };
+		24BA8B7A19BAABA200B47927 /* xmlparser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7919BAABA200B47927 /* xmlparser.m */; };
+		24BDBCA819BC59FB00D8CAC9 /* receive_video.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBCA719BC59FB00D8CAC9 /* receive_video.m */; };
+		24BDBF6A19BCAA6B00D8CAC9 /* gstreamer_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF6919BCAA6B00D8CAC9 /* gstreamer_utils.m */; };
+		24BDBF6D19BCAA9000D8CAC9 /* pjnath_initialize.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF6C19BCAA9000D8CAC9 /* pjnath_initialize.m */; };
+		24BDBF7119BCAC4700D8CAC9 /* stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF7019BCAC4700D8CAC9 /* stream.m */; };
+		24BDBF7519BCAE8500D8CAC9 /* gstpjnath.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF7419BCAE8500D8CAC9 /* gstpjnath.m */; };
+		24BDBF7719BCAE9700D8CAC9 /* gstpjnathsink.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF7619BCAE9700D8CAC9 /* gstpjnathsink.m */; };
+		24BDBF7919BCAEA800D8CAC9 /* gdtpjnathsrc.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF7819BCAEA800D8CAC9 /* gdtpjnathsrc.m */; };
 		C67B40CD172EBEA3008359CC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67B40CC172EBEA3008359CC /* UIKit.framework */; };
 		C67B40CF172EBEA3008359CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67B40CE172EBEA3008359CC /* Foundation.framework */; };
 		C67B40D1172EBEA3008359CC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67B40D0172EBEA3008359CC /* CoreGraphics.framework */; };
@@ -128,24 +128,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		24B6B68219C163BC000304BE /* user_information.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = user_information.h; sourceTree = "<group>"; };
 		24BA8B7119B81CC900B47927 /* Login_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login_ViewController.h; sourceTree = "<group>"; };
 		24BA8B7219B81CC900B47927 /* Login_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login_ViewController.m; sourceTree = "<group>"; };
 		24BA8B7519B8213500B47927 /* login.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = login.h; sourceTree = "<group>"; };
-		24BA8B7619B8224A00B47927 /* login.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = login.c; sourceTree = "<group>"; };
-		24BA8B7919BAABA200B47927 /* xmlparser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xmlparser.c; sourceTree = "<group>"; };
+		24BA8B7619B8224A00B47927 /* login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = login.m; sourceTree = "<group>"; };
+		24BA8B7919BAABA200B47927 /* xmlparser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xmlparser.m; sourceTree = "<group>"; };
 		24BA8B7B19BAABAD00B47927 /* xmlparser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xmlparser.h; sourceTree = "<group>"; };
-		24BDBCA719BC59FB00D8CAC9 /* receive_video.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = receive_video.c; sourceTree = "<group>"; };
+		24BDBCA719BC59FB00D8CAC9 /* receive_video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = receive_video.m; sourceTree = "<group>"; };
 		24BDBCA919BC5A0800D8CAC9 /* receive_video.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = receive_video.h; sourceTree = "<group>"; };
-		24BDBF6919BCAA6B00D8CAC9 /* gstreamer_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gstreamer_utils.c; sourceTree = "<group>"; };
+		24BDBF6919BCAA6B00D8CAC9 /* gstreamer_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gstreamer_utils.m; sourceTree = "<group>"; };
 		24BDBF6B19BCAA7B00D8CAC9 /* gstreamer_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gstreamer_utils.h; sourceTree = "<group>"; };
-		24BDBF6C19BCAA9000D8CAC9 /* pjnath_initialize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pjnath_initialize.c; sourceTree = "<group>"; };
+		24BDBF6C19BCAA9000D8CAC9 /* pjnath_initialize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pjnath_initialize.m; sourceTree = "<group>"; };
 		24BDBF6E19BCAA9F00D8CAC9 /* pjnath_initialize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pjnath_initialize.h; sourceTree = "<group>"; };
 		24BDBF6F19BCAC1100D8CAC9 /* stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stream.h; sourceTree = "<group>"; };
-		24BDBF7019BCAC4700D8CAC9 /* stream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stream.c; sourceTree = "<group>"; };
-		24BDBF7419BCAE8500D8CAC9 /* gstpjnath.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gstpjnath.c; sourceTree = "<group>"; };
-		24BDBF7619BCAE9700D8CAC9 /* gstpjnathsink.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gstpjnathsink.c; sourceTree = "<group>"; };
-		24BDBF7819BCAEA800D8CAC9 /* gdtpjnathsrc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gdtpjnathsrc.c; sourceTree = "<group>"; };
+		24BDBF7019BCAC4700D8CAC9 /* stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = stream.m; sourceTree = "<group>"; };
+		24BDBF7419BCAE8500D8CAC9 /* gstpjnath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gstpjnath.m; sourceTree = "<group>"; };
+		24BDBF7619BCAE9700D8CAC9 /* gstpjnathsink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gstpjnathsink.m; sourceTree = "<group>"; };
+		24BDBF7819BCAEA800D8CAC9 /* gdtpjnathsrc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gdtpjnathsrc.m; sourceTree = "<group>"; };
 		24BDBF7A19BCAEB200D8CAC9 /* gstpjnath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gstpjnath.h; sourceTree = "<group>"; };
 		24BDBF7B19BCAEBD00D8CAC9 /* gstpjnathsink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gstpjnathsink.h; sourceTree = "<group>"; };
 		24BDBF7C19BCAEC900D8CAC9 /* gstpjnathsrc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gstpjnathsrc.h; sourceTree = "<group>"; };
@@ -350,7 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				24BA8B7519B8213500B47927 /* login.h */,
-				24BA8B7619B8224A00B47927 /* login.c */,
+				24BA8B7619B8224A00B47927 /* login.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -358,7 +357,7 @@
 		24BA8B7819BAAB8300B47927 /* utils */ = {
 			isa = PBXGroup;
 			children = (
-				24BA8B7919BAABA200B47927 /* xmlparser.c */,
+				24BA8B7919BAABA200B47927 /* xmlparser.m */,
 				24BA8B7B19BAABAD00B47927 /* xmlparser.h */,
 			);
 			name = utils;
@@ -367,14 +366,14 @@
 		24BDBCA619BC59EA00D8CAC9 /* stream */ = {
 			isa = PBXGroup;
 			children = (
-				24BDBCA719BC59FB00D8CAC9 /* receive_video.c */,
+				24BDBCA719BC59FB00D8CAC9 /* receive_video.m */,
 				24BDBCA919BC5A0800D8CAC9 /* receive_video.h */,
-				24BDBF6919BCAA6B00D8CAC9 /* gstreamer_utils.c */,
+				24BDBF6919BCAA6B00D8CAC9 /* gstreamer_utils.m */,
 				24BDBF6B19BCAA7B00D8CAC9 /* gstreamer_utils.h */,
-				24BDBF6C19BCAA9000D8CAC9 /* pjnath_initialize.c */,
+				24BDBF6C19BCAA9000D8CAC9 /* pjnath_initialize.m */,
 				24BDBF6E19BCAA9F00D8CAC9 /* pjnath_initialize.h */,
 				24BDBF6F19BCAC1100D8CAC9 /* stream.h */,
-				24BDBF7019BCAC4700D8CAC9 /* stream.c */,
+				24BDBF7019BCAC4700D8CAC9 /* stream.m */,
 			);
 			name = stream;
 			sourceTree = "<group>";
@@ -382,9 +381,9 @@
 		24BDBF7319BCAE6600D8CAC9 /* gstpjnath */ = {
 			isa = PBXGroup;
 			children = (
-				24BDBF7419BCAE8500D8CAC9 /* gstpjnath.c */,
-				24BDBF7619BCAE9700D8CAC9 /* gstpjnathsink.c */,
-				24BDBF7819BCAEA800D8CAC9 /* gdtpjnathsrc.c */,
+				24BDBF7419BCAE8500D8CAC9 /* gstpjnath.m */,
+				24BDBF7619BCAE9700D8CAC9 /* gstpjnathsink.m */,
+				24BDBF7819BCAEA800D8CAC9 /* gdtpjnathsrc.m */,
 				24BDBF7A19BCAEB200D8CAC9 /* gstpjnath.h */,
 				24BDBF7B19BCAEBD00D8CAC9 /* gstpjnathsink.h */,
 				24BDBF7C19BCAEC900D8CAC9 /* gstpjnathsrc.h */,
@@ -593,7 +592,6 @@
 				C6B6126517395CF2003FC410 /* Supporting Files */,
 				24BA8B7119B81CC900B47927 /* Login_ViewController.h */,
 				24BA8B7219B81CC900B47927 /* Login_ViewController.m */,
-				24B6B68219C163BC000304BE /* user_information.h */,
 			);
 			path = "Tutorial 3";
 			sourceTree = "<group>";
@@ -936,19 +934,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6B6126B17395CF2003FC410 /* main.m in Sources */,
-				24BA8B7719B8224A00B47927 /* login.c in Sources */,
+				24BA8B7719B8224A00B47927 /* login.m in Sources */,
 				C6B6126F17395CF2003FC410 /* AppDelegate.m in Sources */,
-				24BDBF7719BCAE9700D8CAC9 /* gstpjnathsink.c in Sources */,
-				24BDBF6D19BCAA9000D8CAC9 /* pjnath_initialize.c in Sources */,
-				24BDBCA819BC59FB00D8CAC9 /* receive_video.c in Sources */,
+				24BDBF7719BCAE9700D8CAC9 /* gstpjnathsink.m in Sources */,
+				24BDBF6D19BCAA9000D8CAC9 /* pjnath_initialize.m in Sources */,
+				24BDBCA819BC59FB00D8CAC9 /* receive_video.m in Sources */,
 				C6B6127E17395CF2003FC410 /* Gstreamer_ViewController.m in Sources */,
 				24BA8B7319B81CC900B47927 /* Login_ViewController.m in Sources */,
-				24BDBF7519BCAE8500D8CAC9 /* gstpjnath.c in Sources */,
-				24BA8B7A19BAABA200B47927 /* xmlparser.c in Sources */,
-				24BDBF7119BCAC4700D8CAC9 /* stream.c in Sources */,
-				24BDBF7919BCAEA800D8CAC9 /* gdtpjnathsrc.c in Sources */,
+				24BDBF7519BCAE8500D8CAC9 /* gstpjnath.m in Sources */,
+				24BA8B7A19BAABA200B47927 /* xmlparser.m in Sources */,
+				24BDBF7119BCAC4700D8CAC9 /* stream.m in Sources */,
+				24BDBF7919BCAEA800D8CAC9 /* gdtpjnathsrc.m in Sources */,
 				C6B6128B17395D4F003FC410 /* GStreamerBackend.m in Sources */,
-				24BDBF6A19BCAA6B00D8CAC9 /* gstreamer_utils.c in Sources */,
+				24BDBF6A19BCAA6B00D8CAC9 /* gstreamer_utils.m in Sources */,
 				C6EB857C173A4D9500C3953D /* EaglUIVIew.m in Sources */,
 				C68C528B174D13EB007A0729 /* gst_ios_init.m in Sources */,
 			);

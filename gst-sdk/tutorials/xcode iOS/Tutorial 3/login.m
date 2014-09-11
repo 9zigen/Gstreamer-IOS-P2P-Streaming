@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <stdio.h>
 #include <sys/time.h>
+#include <libxml/parser.h>
 
 #define MAX_TAG 20
 #define MAX_TAG_LENGTH 50
@@ -15,7 +16,7 @@
 
 #define SERVER "112.213.86.238"
 //#define SERVER "10.10.10.121"
-#define SERVER_PORT 5000
+#define SERVER_PORT 5555
 
 /* Connect to server return value */
 #define WRONG_USERNAME_OR_PASSWORD 0x0
@@ -138,6 +139,7 @@ int connect_with_timeout(char *host,
 //                         buffer);
     
 	/* Check error code */
+    xmlInitParser(); // init only once
 	parse_xml_node_content(buffer, "errorCode", result);
 //	__android_log_print (ANDROID_LOG_INFO,
 //                         __FILE__,

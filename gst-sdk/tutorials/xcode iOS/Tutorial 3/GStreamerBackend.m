@@ -1,5 +1,5 @@
 #import "GStreamerBackend.h"
-#include "stream.h"
+#include "receive_video.h"
 #include <gst/gst.h>
 #include <gst/video/video.h>
 
@@ -32,13 +32,14 @@ GST_DEBUG_CATEGORY_STATIC (debug_category);
     {
         self->ui_delegate = uiDelegate;
         self->ui_video_view = video_view;
+        ios_ui_video_view = self->ui_video_view;
 
         GST_DEBUG_CATEGORY_INIT (debug_category, "tutorial-3", 0, "iOS tutorial 3");
         gst_debug_set_threshold_for_name("tutorial-3", GST_LEVEL_DEBUG);
 
         /* Start the bus monitoring task */
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            app_function(NULL);
+            app_function();
         });
     }
 
