@@ -61,5 +61,6 @@ struct _Holder
 };
 
 void close_server_socket ();
+void out_of_current_session();
 
 #endif
