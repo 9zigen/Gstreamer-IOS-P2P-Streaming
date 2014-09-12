@@ -261,7 +261,7 @@ gst_pjnath_src_class_init (GstpjnathSrcClass *klass)
         
         if (*buffer != NULL) {
             //GST_LOG_OBJECT (pjnathsrc, "Got buffer, pushing");
-            puts("Got buffer, pushing");
+            //puts("Got buffer, pushing");
             return GST_FLOW_OK;
         } else {
             //GST_LOG_OBJECT (pjnathsrc, "Got interrupting, returning wrong-state");

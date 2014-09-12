@@ -2,9 +2,9 @@
 #import "GStreamerBackendDelegate.h"
 
 @interface Gstreamer_ViewController : UIViewController <GStreamerBackendDelegate> {
-    IBOutlet UILabel *message_label;
-    IBOutlet UIBarButtonItem *play_button;
-    IBOutlet UIBarButtonItem *pause_button;
+    //IBOutlet UILabel *message_label;
+    //IBOutlet UIBarButtonItem *play_button;
+    //IBOutlet UIBarButtonItem *pause_button;
     IBOutlet UIView *video_view;
     IBOutlet UIView *video_container_view;
     IBOutlet NSLayoutConstraint *video_width_constraint;

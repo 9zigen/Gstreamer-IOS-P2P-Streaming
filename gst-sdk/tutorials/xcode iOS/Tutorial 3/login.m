@@ -139,7 +139,6 @@ int connect_with_timeout(char *host,
 //                         buffer);
     
 	/* Check error code */
-    xmlInitParser(); // init only once
 	parse_xml_node_content(buffer, "errorCode", result);
 //	__android_log_print (ANDROID_LOG_INFO,
 //                         __FILE__,

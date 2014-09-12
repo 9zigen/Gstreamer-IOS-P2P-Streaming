@@ -21,12 +21,12 @@
     puts("view loaded");
     [super viewDidLoad];
     
-    play_button.enabled = FALSE;
-    pause_button.enabled = FALSE;
+    //play_button.enabled = FALSE;
+    //pause_button.enabled = FALSE;
     
     /* Make these constant for now, later tutorials will change them */
-    media_width = 320;
-    media_height = 240;
+    media_width = 1280;
+    media_height = 720;
 
     gst_backend = [[GStreamerBackend alloc] init:self videoView:video_view];
 }
@@ -74,17 +74,17 @@
 {
     puts("gstreamerInitialized");
     dispatch_async(dispatch_get_main_queue(), ^{
-        play_button.enabled = TRUE;
-        pause_button.enabled = TRUE;
-        message_label.text = @"Ready";
+        //play_button.enabled = TRUE;
+        //pause_button.enabled = TRUE;
+        //message_label.text = @"Ready";
     });
 }
 
 -(void) gstreamerSetUIMessage:(NSString *)message
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        message_label.text = message;
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        message_label.text = message;
+//    });
 }
 
 @end

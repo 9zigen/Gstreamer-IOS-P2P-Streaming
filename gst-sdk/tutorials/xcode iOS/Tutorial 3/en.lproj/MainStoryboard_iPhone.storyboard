@@ -101,70 +101,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" restorationIdentifier="gstreamer_view" translatesAutoresizingMaskIntoConstraints="NO" id="kNy-Hx-tLx" userLabel="VideoContainer">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="484"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                                 <subviews>
                                     <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="8dF-r6-VR8" userLabel="Video" customClass="EaglUIView">
-                                        <rect key="frame" x="0.0" y="122" width="320" height="240"/>
+                                        <rect key="frame" x="0.0" y="-24" width="320" height="572"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="240" type="user" id="3IV-D5-Slo"/>
-                                            <constraint firstAttribute="width" constant="320" type="user" id="noZ-Dh-jgr"/>
-                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="8dF-r6-VR8" secondAttribute="centerX" type="user" id="4Iv-vK-z4P"/>
-                                    <constraint firstAttribute="centerY" secondItem="8dF-r6-VR8" secondAttribute="centerY" type="user" id="8TW-mh-2d0"/>
+                                    <constraint firstAttribute="bottom" secondItem="8dF-r6-VR8" secondAttribute="bottom" type="default" id="9yn-dO-9I7"/>
+                                    <constraint firstItem="8dF-r6-VR8" firstAttribute="leading" secondItem="kNy-Hx-tLx" secondAttribute="leading" type="user" id="dAp-Uo-B7r"/>
+                                    <constraint firstItem="8dF-r6-VR8" firstAttribute="top" secondItem="kNy-Hx-tLx" secondAttribute="top" constant="-24" id="hS4-HI-yqr"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Initializing..." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="BCO-QW-KuL" userLabel="Message">
-                                <rect key="frame" x="20" y="484" width="280" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" type="user" id="uC3-Xs-0JE"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jpW-Vu-yQA">
-                                <rect key="frame" x="0.0" y="504" width="320" height="44"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="gxs-Ri-v4R"/>
-                                    <barButtonItem systemItem="play" id="8mX-mr-fOK">
-                                        <connections>
-                                            <action selector="play:" destination="keI-iU-SU6" id="Z1k-Pi-yJ8"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem systemItem="pause" id="ALT-af-mAW">
-                                        <connections>
-                                            <action selector="pause:" destination="keI-iU-SU6" id="SfY-8K-kvD"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="88J-sn-QnC"/>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="BCO-QW-KuL" firstAttribute="leading" secondItem="8Zk-0i-uAh" secondAttribute="leading" constant="20" symbolic="YES" type="user" id="QkL-nM-ago"/>
-                            <constraint firstItem="jpW-Vu-yQA" firstAttribute="bottom" secondItem="8Zk-0i-uAh" secondAttribute="bottom" constant="20" symbolic="YES" type="user" id="Ulq-Jj-QPC"/>
                             <constraint firstItem="kNy-Hx-tLx" firstAttribute="leading" secondItem="8Zk-0i-uAh" secondAttribute="leading" type="user" id="VXh-rs-7K3"/>
-                            <constraint firstAttribute="trailing" secondItem="BCO-QW-KuL" secondAttribute="trailing" constant="20" symbolic="YES" type="user" id="aul-AR-Q86"/>
-                            <constraint firstItem="BCO-QW-KuL" firstAttribute="top" secondItem="kNy-Hx-tLx" secondAttribute="bottom" type="user" id="btO-ZI-eil"/>
-                            <constraint firstItem="kNy-Hx-tLx" firstAttribute="trailing" secondItem="8Zk-0i-uAh" secondAttribute="trailing" type="default" id="ctk-t4-fwc"/>
-                            <constraint firstItem="jpW-Vu-yQA" firstAttribute="trailing" secondItem="8Zk-0i-uAh" secondAttribute="trailing" constant="20" symbolic="YES" type="user" id="iHk-ya-k0H"/>
-                            <constraint firstItem="BCO-QW-KuL" firstAttribute="bottom" secondItem="jpW-Vu-yQA" secondAttribute="top" constant="8" symbolic="YES" type="user" id="sJy-Tj-bUl"/>
-                            <constraint firstItem="jpW-Vu-yQA" firstAttribute="leading" secondItem="8Zk-0i-uAh" secondAttribute="leading" constant="20" symbolic="YES" type="user" id="wUf-TQ-8P5"/>
+                            <constraint firstAttribute="trailing" secondItem="kNy-Hx-tLx" secondAttribute="trailing" type="user" id="XB1-Ct-zeA"/>
+                            <constraint firstAttribute="bottom" secondItem="kNy-Hx-tLx" secondAttribute="bottom" type="default" id="rcu-wD-yhh"/>
                             <constraint firstItem="kNy-Hx-tLx" firstAttribute="top" secondItem="8Zk-0i-uAh" secondAttribute="top" type="user" id="xED-Cv-tnB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="8NB-1a-hJv"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="message_label" destination="BCO-QW-KuL" id="Ysd-yj-PXy"/>
-                        <outlet property="pause_button" destination="ALT-af-mAW" id="x7P-Bj-IO7"/>
-                        <outlet property="play_button" destination="8mX-mr-fOK" id="wnM-HL-Jby"/>
                         <outlet property="video_container_view" destination="kNy-Hx-tLx" id="X0F-Tr-t1o"/>
                         <outlet property="video_view" destination="8dF-r6-VR8" id="tuL-fL-PND"/>
                     </connections>

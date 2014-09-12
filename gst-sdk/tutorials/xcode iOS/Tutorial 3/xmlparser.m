@@ -275,16 +275,23 @@ void parse_xml_node_content (const char *docString, const char *node, char *out)
 	xmlChar *keyword;
 	xmlChar *docStr;
 	int i;
-
-    xmlInitParser();
     
 	docStr = (xmlChar *)calloc(1000, sizeof(xmlChar));
 	keyword = (xmlChar *)calloc(1000, sizeof(xmlChar));
 	xpath = (xmlChar *)calloc(1000, sizeof(xmlChar));
+    doc = (xmlDocPtr) calloc(1, sizeof(xmlDocPtr));
+    
+    printf("\n  doc = %d \n", doc);
 
 	sprintf(xpath, "//%s", node);
 	strncpy(docStr, docString, strlen(docString));
-	doc = xmlParseDoc(docStr);
+    
+    if (!doc) {
+        puts("xmlDocPtr = NULL");
+        exit(EXIT_FAILURE);
+    } else {
+        doc = xmlParseDoc(docStr);
+    }
     
 	/* Get "Session" node */
 	result = getnodeset (doc, xpath);
@@ -308,8 +315,8 @@ void parse_xml_node_content (const char *docString, const char *node, char *out)
     
 	strncpy(out, keyword, strlen(keyword));
     
-	//xmlFreeDoc(doc);
-	//xmlCleanupParser();
-	///xmlFree(keyword);
-	//xmlFree(xpath);
+	xmlFreeDoc(doc);
+	xmlCleanupParser();
+	xmlFree(keyword);
+	xmlFree(xpath);
 }

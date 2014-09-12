@@ -341,14 +341,22 @@ void free_receive_video_data ()
 
 static set_pipeline_to_playing_state()
 {
+    puts("set_pipeline_to_playing_state");
+    
 	/*
 	 * When master is android, we set pipeline to PLAYING state directly not
 	 * send signal start-streaming to master. So we must wait pipeline ready
 	 * */
-	puts("set_pipeline_to_playing_state");
+	GstStateChangeReturn ret;
+    
 	while(!isPipelineReady) usleep(1000);
-    puts("____");
-	gst_element_set_state(gstreamer_data->pipeline, GST_STATE_PLAYING);
+	
+    ret = gst_element_set_state(gstreamer_data->pipeline, GST_STATE_PLAYING);
+    if (ret == GST_STATE_CHANGE_FAILURE) {
+        puts("Set pipeline to PLAYING");
+        exit(EXIT_FAILURE);
+    }
+    
     puts("set_pipeline_to_playing_state done");
 }
 

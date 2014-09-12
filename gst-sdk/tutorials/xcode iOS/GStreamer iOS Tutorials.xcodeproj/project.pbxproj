@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		245C9BC719C2A57300F6406E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 245C9BC619C2A57300F6406E /* libxml2.dylib */; };
 		24BA8B7319B81CC900B47927 /* Login_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7219B81CC900B47927 /* Login_ViewController.m */; };
 		24BA8B7719B8224A00B47927 /* login.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7619B8224A00B47927 /* login.m */; };
 		24BA8B7A19BAABA200B47927 /* xmlparser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7919BAABA200B47927 /* xmlparser.m */; };
@@ -128,6 +129,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		245C9BC619C2A57300F6406E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		24BA8B7119B81CC900B47927 /* Login_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login_ViewController.h; sourceTree = "<group>"; };
 		24BA8B7219B81CC900B47927 /* Login_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login_ViewController.m; sourceTree = "<group>"; };
 		24BA8B7519B8213500B47927 /* login.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = login.h; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				245C9BC719C2A57300F6406E /* libxml2.dylib in Frameworks */,
 				C6B6126017395CF2003FC410 /* UIKit.framework in Frameworks */,
 				C6B6126117395CF2003FC410 /* Foundation.framework in Frameworks */,
 				C6B6126217395CF2003FC410 /* CoreGraphics.framework in Frameworks */,
@@ -419,6 +422,7 @@
 		C67B40CB172EBEA3008359CC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				245C9BC619C2A57300F6406E /* libxml2.dylib */,
 				C67B40CC172EBEA3008359CC /* UIKit.framework */,
 				C67B40CE172EBEA3008359CC /* Foundation.framework */,
 				C67B40D0172EBEA3008359CC /* CoreGraphics.framework */,
@@ -1536,11 +1540,13 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/Users/cxphong/Desktop/pjnath_lib/include,
+					"${SDK_DIR}/usr/include/libxml2",
 					"\"~/Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework/Headers\"",
 				);
 				INFOPLIST_FILE = "Tutorial 3/Tutorial 3-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
+					"$(SDKROOT)",
 					"\"$(SRCROOT)/../../../../pjnath_lib/lib\"",
 					"$(inherited)",
 				);
@@ -1664,11 +1670,13 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/Users/cxphong/Desktop/pjnath_lib/include,
+					"${SDK_DIR}/usr/include/libxml2",
 					"\"~/Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework/Headers\"",
 				);
 				INFOPLIST_FILE = "Tutorial 3/Tutorial 3-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
+					"$(SDKROOT)",
 					"\"$(SRCROOT)/../../../../pjnath_lib/lib\"",
 					"$(inherited)",
 				);
