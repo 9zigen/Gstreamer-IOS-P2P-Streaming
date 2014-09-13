@@ -73,27 +73,27 @@ static void cb_newpad (GstElement *decodebin,
 /*
  * Initialize gstreamer pipeline
  */
-static void  video_receive_init_gstreamer(Holder *data)
+static void  init_gstreamer(Holder *data)
 {
-	//WAIT_UNTIL_ANDROID_GSTREAMER_INIT_DONE(1000);
 	puts("video_receive_init_gstreamer");
     
-    GstElement *videotestsrc;
 	GstElement *pjnathsrc;
 	GstElement *tee;
 	GstElement *queue;
 	GstElement *capsfilter;
+	GstElement *rtpbin;
 	GstElement *rtph264depay;
-	GstElement *h264parse;
 	GstElement *decodebin;
+	GstElement *videoconvert, *videoscale, *videorate, *caps;
 	GstElement *video_view;
-	GstElement *rtpjitterbuffer;
 	GstMessage *msg;
 	GstStateChangeReturn ret;
 	GSource *bus_source;
 	GstPadTemplate *tee_src_pad_template;
 	GstPad *tee_q1_pad;
 	GstPad *q1_pad;
+	GstPad *srcpad;
+	GstPad *sinkpad;
 	GstPadLinkReturn retv;
     
 	/* Init gstreamer library & pjnath-gstreamer plugin */
@@ -106,15 +106,15 @@ static void  video_receive_init_gstreamer(Holder *data)
 							   "http://telepathy.freedesktop.org/wiki/", "");
     
 	/* Create elements */
-    videotestsrc = gst_element_factory_make("videotestsrc", "videotestsrc");
 	pjnathsrc = gst_element_factory_make("pjnathsrc", "pjnathsrc");
 	tee = gst_element_factory_make("tee", "tee");
 	queue = gst_element_factory_make("queue", NULL);
 	capsfilter = gst_element_factory_make("capsfilter", NULL);
-	rtpjitterbuffer = gst_element_factory_make("rtpjitterbuffer", NULL);
+	rtpbin = gst_element_factory_make("rtpbin", NULL);
 	rtph264depay = gst_element_factory_make("rtph264depay", NULL);
-	h264parse = gst_element_factory_make("h264parse", NULL);
 	decodebin = gst_element_factory_make("decodebin", NULL);
+	videoconvert = gst_element_factory_make("videoconvert", NULL);
+	videoscale = gst_element_factory_make("videoscale", NULL);
 	video_view = gst_element_factory_make("autovideosink", NULL);
 	gstreamer_data->pipeline = gst_pipeline_new("Receive Video Pipeline");
     
@@ -127,92 +127,57 @@ static void  video_receive_init_gstreamer(Holder *data)
 	g_object_set(pjnathsrc, "blocksize", 4096, NULL);
     
 	g_object_set(capsfilter, "caps", gst_caps_from_string
-                 ("application/x-rtp, payload=(int)96"), NULL);
+                 ("application/x-rtp, payload=(int)96, "
+                  "media=(string)video,clock-rate=(int)90000,"
+                  "encoding-name=(string)H264"), NULL);
 	g_object_set(video_view, "sync", FALSE, NULL);
-    
-	//g_object_set(rtpjitterbuffer, "drop-on-latency", TRUE, NULL);
-	//g_object_set(rtpjitterbuffer, "latency", 20000, NULL);
-	//g_object_set(rtpjitterbuffer, "percent", 100, NULL);
-	g_object_set(rtpjitterbuffer, "mode", 0, NULL);
     
 	/* Queue
 	 * Set leaky to 2(downstream) to ignore old(don't need anymore) frames
 	 * to make smooth display.
 	 * */
 	g_object_set(queue, "max-size-buffers", 10, NULL);
-	g_object_set(queue, "leaky", 2, NULL);
+	g_object_set(queue, "leaky", 0, NULL);
+    //	g_object_set(caps, "caps", gst_caps_from_string
+    //				("video/x-raw,framerate=10/1"), NULL);
     
 //	assert(gstreamer_data->pipeline);
 //	assert(pjnathsrc);
 //	assert(tee);
 //	assert(queue);
+//	assert(rtpbin);
 //	assert(capsfilter);
-//	assert(rtpjitterbuffer);
 //	assert(rtph264depay);
-//	assert(video_view);
 //	assert(decodebin);
+//	assert(videoconvert);
+//	assert(videoscale);
+//	assert(videorate);
+//	assert(caps);
+//	assert(video_view);
 //	assert(h264parse);
-
-    if (!gstreamer_data->pipeline) {
-        puts("gstreamer_data->pipeline = null");
-        exit(EXIT_FAILURE);
-    }
-    if (!pjnathsrc) {
-        puts("pjnathsrc= null");
-        exit(EXIT_FAILURE);
-    }
-    if (!tee) {
-        puts("tee = null");
-        exit(EXIT_FAILURE);
-    }
-    if (!queue) {
-        puts("queue = null");
-        exit(EXIT_FAILURE);
-    }
-    if (!capsfilter) {
-        puts("capsfilter = null");
-        exit(EXIT_FAILURE);
-    }
-    if (!rtpjitterbuffer) {
-        puts("rtpjitterbuffer = null");
-        exit(EXIT_FAILURE);
-    }
-    if (!rtph264depay) {
-        puts("rtph264depay = null");
-        exit(EXIT_FAILURE);
-    }
-    if (!video_view) {
-        puts("video_view = null");
-        exit(EXIT_FAILURE);
-    }
-    if (!decodebin) {
-        puts("decodebin = null");
-        exit(EXIT_FAILURE);
-    }
     
-    gst_bin_add_many(GST_BIN (gstreamer_data->pipeline),
-					 pjnathsrc, tee, queue, capsfilter, rtpjitterbuffer,
-					 rtph264depay, decodebin, video_view, NULL);
-
-	g_signal_connect (decodebin, "pad-added", G_CALLBACK (cb_newpad), video_view);
-
-	if (!gst_element_link_many(pjnathsrc, tee, NULL) ||
-		!gst_element_link_many(queue, capsfilter, rtpjitterbuffer,
-						       rtph264depay,
-							   decodebin, NULL)) {
-            puts("Elements could not be linked.\n");
-            gst_object_unref(gstreamer_data->pipeline);
-            return;
-    }
+	gst_bin_add_many(GST_BIN (gstreamer_data->pipeline),
+					 pjnathsrc, tee, queue,  capsfilter, rtpbin,
+					 rtph264depay, decodebin, videoscale,
+					 videoconvert, video_view, NULL);
+    
+	if (!gst_element_link_many(pjnathsrc, tee, NULL)||
+		!gst_element_link_many(queue, capsfilter, NULL) ||
+		!gst_element_link_many(rtph264depay, decodebin, NULL) ||
+		!gst_element_link_many(videoscale, videoconvert, video_view, NULL)){
+		puts("Elements could not be linked.\n");
+		gst_object_unref(gstreamer_data->pipeline);
+		return;
+	}
     
 	/* Link the tee to the queue 1 */
-	if ((tee_src_pad_template = gst_element_class_get_pad_template (GST_ELEMENT_GET_CLASS (tee), "src_%u")) == NULL ||
+	if((tee_src_pad_template = gst_element_class_get_pad_template (GST_ELEMENT_GET_CLASS (tee), "src_%u")) == NULL ||
        (tee_q1_pad = gst_element_request_pad (tee, tee_src_pad_template, NULL, NULL)) == NULL ||
-       (q1_pad = gst_element_get_static_pad (queue, "sink")) == NULL) {
+       (q1_pad = gst_element_get_static_pad (queue, "sink")) == NULL){
 		g_critical("Failed to get pads!");
 	}
     
-	if ((retv = gst_pad_link (tee_q1_pad, q1_pad)) != GST_PAD_LINK_OK ) {
+	if((retv = gst_pad_link (tee_q1_pad, q1_pad)) != GST_PAD_LINK_OK ) {
 		g_critical("tee_q1 = %d, q1_pad = %d", tee_q1_pad, q1_pad);
 		g_critical("ret = %d", retv);
 		g_critical("Tee for q1 could not be linked.\n");
@@ -222,37 +187,41 @@ static void  video_receive_init_gstreamer(Holder *data)
     
 	gst_object_unref(q1_pad);
     
+	/*
+     * Link with rtpbin
+     */
+    
+	/* capsfilter->rtpbin_sink */
+	sinkpad = gst_element_get_request_pad (rtpbin, "recv_rtp_sink_%u");
+	srcpad = gst_element_get_static_pad (capsfilter, "src");
+	if (gst_pad_link (srcpad, sinkpad) != GST_PAD_LINK_OK) {
+		puts("Failed to link audio capsfilter to rtpbin");
+	}
+	gst_object_unref (srcpad);
+	gst_object_unref (sinkpad);
+    
+	g_signal_connect (rtpbin, "pad-added", G_CALLBACK (on_pad_added), rtph264depay);
+	g_signal_connect (decodebin, "pad-added", G_CALLBACK (cb_newpad), videoscale);
+    
 	gst_element_set_state(gstreamer_data->pipeline , GST_STATE_READY);
 	gstreamer_data->video_sink = gst_bin_get_by_interface(gstreamer_data->pipeline, GST_TYPE_VIDEO_OVERLAY);
-    if (!gstreamer_data->video_sink) {
-        GST_ERROR ("Could not retrieve video sink");
-        return;
-    }
-    
+    if(!gstreamer_data->video_sink) exit(EXIT_FAILURE);
     gst_video_overlay_set_window_handle(GST_VIDEO_OVERLAY(gstreamer_data->video_sink),
                                         (guintptr) (id) ios_ui_video_view);
-    
-	//assert(gstreamer_data->video_sink);
-    
-    //	/* Debug setting */
-    //	gst_debug_set_default_threshold(GST_LEVEL_DEBUG);
-    //	gst_debug_add_log_function(gstAndroidLog, NULL);
-    //	gst_debug_set_active (true);
-    
+	
 	/* Listen to the bus */
-//	gstreamer_data->bus = gst_element_get_bus(gstreamer_data->pipeline);
-//	gst_bus_enable_sync_message_emission(gstreamer_data->bus);
-//	gst_bus_add_signal_watch(gstreamer_data->bus);
-//    
-//	g_signal_connect(G_OBJECT(gstreamer_data->bus),
-//                     "message::error",
-//                     (GCallback)on_error, NULL);
-//	g_signal_connect(G_OBJECT(gstreamer_data->bus),
-//                     "message::state-changed",
-//                     (GCallback)on_state_changed, gstreamer_data);
+	gstreamer_data->bus = gst_element_get_bus(gstreamer_data->pipeline);
+	gst_bus_enable_sync_message_emission(gstreamer_data->bus);
+	gst_bus_add_signal_watch(gstreamer_data->bus);
+    
+	g_signal_connect(G_OBJECT(gstreamer_data->bus),
+                     "message::error",
+                     (GCallback)on_error, NULL);
+	g_signal_connect(G_OBJECT(gstreamer_data->bus),
+                     "message::state-changed",
+                     (GCallback)on_state_changed, gstreamer_data);
     
 	isReadyToPlayPipeline();
-    puts("gstreamer done");
 }
 
 /* Will be called from main thread - stream.c */
@@ -495,22 +464,22 @@ void master_ownner_listener()
 /*
  * Function of android master in level 2
  */
-gpointer  video_receive_level_1(gpointer data)
+gpointer  level_1 (gpointer data)
 {
-	puts("+++++++++++video_receive_level_1");
+	puts("+++++++++++level_1");
 	pj_status_t  rc;
 	pj_thread_desc desc;
 	pj_thread_t *this_thread;
     
 	/* Register pjnath thread */
-//	if (!pj_thread_is_registered()) {
-//		puts("\n\n Register thread \n\n");
-//		rc = pj_thread_register("thread", desc, &this_thread);
-//		if(rc != PJ_SUCCESS) {
-//			puts("\nRegister thread failed!\n");
-//			printf("\nError code = %s\n", strerror(rc-120000));
-//		}
-//	}
+	if (!pj_thread_is_registered()) {
+		puts("\n\n Register thread \n\n");
+		rc = pj_thread_register("thread", desc, &this_thread);
+		if(rc != PJ_SUCCESS) {
+			puts("\nRegister thread failed!\n");
+			printf("\nError code = %s\n", strerror(rc-120000));
+		}
+	}
     
 	/*
      * Check gstreamer & surface init done
@@ -525,7 +494,7 @@ gpointer  video_receive_level_1(gpointer data)
     
 	/* Start play streaming */
 	puts("+++++++++++peer Rpi gstreamer");
-	video_receive_init_gstreamer(data_for_rpi);
+	init_gstreamer(data_for_rpi);
 	
     start_streaming(peerIdRpi);
     
@@ -607,9 +576,9 @@ static void client_owner_listener()
 /*
  * Function of android client in level 2
  */
-gpointer  video_receive_level_2(gpointer data)
+gpointer  level_2(gpointer data)
 {
-//	LOGD(__FILE__, "video_receive_level2");
+//	LOGD(__FILE__, "level2");
     
 	pj_status_t  rc;
 	pj_thread_desc desc;
@@ -636,7 +605,7 @@ gpointer  video_receive_level_2(gpointer data)
     
 	/* Play Gstreamer */
 //	LOGD(__FILE__, "peer android gstreamer");
-	video_receive_init_gstreamer(data_for_android_master);
+	init_gstreamer(data_for_android_master);
 	set_pipeline_to_playing_state();
     
 	/* ICE to Rpi */

@@ -16,6 +16,6 @@ struct _Gstreamer {
 extern Gstreamer *gstreamer_data;
 extern UIView *ios_ui_video_view;
 
-gpointer  video_receive_level_1(gpointer data);
-gpointer  video_receive_level_2(gpointer data);
+gpointer  level_1(gpointer data);
+gpointer  level_2(gpointer data);
 void free_receive_video_data();

@@ -33,12 +33,11 @@ void *app_function (void *userdata)
     
 	if (mLevel == 1) {
 		videoThread = g_thread_new("video thread level 1",
-                                   video_receive_level_1,
+                                   level_1,
                                    NULL);
-	}
-	else if (mLevel == 2) {
+	} else if (mLevel == 2) {
 		videoThread = g_thread_new("video thread level 2",
-                                   video_receive_level_2,
+                                   level_2,
                                    NULL);
 	}
     
