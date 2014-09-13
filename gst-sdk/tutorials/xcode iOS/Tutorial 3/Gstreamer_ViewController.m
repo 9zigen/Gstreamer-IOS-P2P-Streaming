@@ -70,7 +70,7 @@
 /*
  * Methods from GstreamerBackendDelegate
  */
--(void) gstreamerInitialized
+- (void) gstreamerInitialized
 {
     puts("gstreamerInitialized");
     dispatch_async(dispatch_get_main_queue(), ^{

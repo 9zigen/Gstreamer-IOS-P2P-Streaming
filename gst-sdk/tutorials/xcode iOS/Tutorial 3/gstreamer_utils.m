@@ -1,5 +1,5 @@
 #include "gstreamer_utils.h"
-#include "receive_video.h"
+#include "core.h"
 
 extern Gstreamer *gstreamer_data;
 

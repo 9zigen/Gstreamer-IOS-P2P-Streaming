@@ -8,29 +8,34 @@ static GstpjnathSrc *pjnathsrc;
 
 #define BUFFER_SIZE (65536)
 
+int mFlag = 0;
+#define LOCK_QUEUE      \
+    while (mFlag) {      \
+        usleep(10000);  \
+    }                   \
+    mFlag = 1;
+
+#define UNLOCK_QUEUE    \
+    mFlag = 0;
+
 static GstFlowReturn
-gst_pjnath_src_create (
-                       GstPushSrc *basesrc,
+gst_pjnath_src_create (GstPushSrc *basesrc,
                        GstBuffer **buffer);
 
 static gboolean
-gst_pjnath_src_unlock (
-                       GstBaseSrc *basesrc);
+gst_pjnath_src_unlock (GstBaseSrc *basesrc);
 
 static gboolean
-gst_pjnath_src_unlock_stop (
-                            GstBaseSrc *basesrc);
+gst_pjnath_src_unlock_stop (GstBaseSrc *basesrc);
 
 static void
-gst_pjnath_src_set_property (
-                             GObject *object,
+gst_pjnath_src_set_property (GObject *object,
                              guint prop_id,
                              const GValue *value,
                              GParamSpec *pspec);
 
 static void
-gst_pjnath_src_get_property (
-                             GObject *object,
+gst_pjnath_src_get_property (GObject *object,
                              guint prop_id,
                              GValue *value,
                              GParamSpec *pspec);
@@ -40,13 +45,11 @@ static void
 gst_pjnath_src_dispose (GObject *object);
 
 static GstStateChangeReturn
-gst_pjnath_src_change_state (
-                             GstElement * element,
+gst_pjnath_src_change_state (GstElement * element,
                              GstStateChange transition);
 
 static GstStaticPadTemplate gst_pjnath_src_src_template =
-GST_STATIC_PAD_TEMPLATE (
-                         "src",
+GST_STATIC_PAD_TEMPLATE ("src",
                          GST_PAD_SRC,
                          GST_PAD_ALWAYS,
                          GST_STATIC_CAPS_ANY);
@@ -142,33 +145,34 @@ gst_pjnath_src_class_init (GstpjnathSrcClass *klass)
         src->outbufs = g_queue_new ();
     }
                                     
-                                    void gst_cb_on_rx_data (pj_ice_strans *ice_st,
-                                                            unsigned comp_id,
-                                                            void *pkt, pj_size_t size,
-                                                            const pj_sockaddr_t *src_addr,
-                                                            unsigned src_addr_len)
-    {
+void gst_cb_on_rx_data (pj_ice_strans *ice_st,
+                        unsigned comp_id,
+                        void *pkt, pj_size_t size,
+                        const pj_sockaddr_t *src_addr,
+                        unsigned src_addr_len)
+{
         if (!pjnathsrc)
             return;
         
-        //LOGD(__FILE__, "receive");
-        
         GstBuffer *buffer = NULL;
         
-#if GST_CHECK_VERSION (1,0,0)
-        buffer = gst_buffer_new_allocate (NULL, size, NULL);
-        gst_buffer_fill (buffer, 0, pkt, size);
-#else
-        buffer = gst_buffer_new_and_alloc (size);
-        memcpy (GST_BUFFER_DATA (buffer), pkt, size);
-#endif
-        
-        g_queue_push_tail (pjnathsrc->outbufs, buffer);
-        if (pjnathsrc->outbufs->length > 1) {
-            g_main_loop_quit (pjnathsrc->mainloop);
-        }
-        
-    }
+        #if GST_CHECK_VERSION (1,0,0)
+        buffer = gst_buffer_new_allocate(NULL, size, NULL);
+        gst_buffer_fill(buffer, 0, pkt, size);
+        #else
+        buffer = gst_buffer_new_and_alloc(size);
+        memcpy(GST_BUFFER_DATA (buffer), pkt, size);
+        #endif
+    
+        LOCK_QUEUE
+        g_queue_push_tail(pjnathsrc->outbufs, buffer);
+        g_main_loop_quit(pjnathsrc->mainloop);
+        UNLOCK_QUEUE
+    
+//        if (pjnathsrc->outbufs->length > 1) {
+//            g_main_loop_quit(pjnathsrc->mainloop);
+//        }
+}
                                     
                                     static gboolean
                                     gst_pjnath_src_unlock_idler (gpointer data)
@@ -227,22 +231,20 @@ gst_pjnath_src_class_init (GstpjnathSrcClass *klass)
         return TRUE;
     }
                                     
-                                    static GstFlowReturn
-                                    gst_pjnath_src_create (
-                                                           GstPushSrc *basesrc,
-                                                           GstBuffer **buffer)
-    {
+static GstFlowReturn
+gst_pjnath_src_create (GstPushSrc *basesrc,
+                       GstBuffer **buffer)
+{
         GstpjnathSrc *pjnathsrc = GST_PJNATH_SRC (basesrc);
-//        GST_LOG_OBJECT (pjnathsrc, "create called");
         
         GST_OBJECT_LOCK (basesrc);
         if (pjnathsrc->unlocked) {
             GST_OBJECT_UNLOCK (basesrc);
-#if GST_CHECK_VERSION (1,0,0)
+            #if GST_CHECK_VERSION (1,0,0)
 	    	return GST_FLOW_FLUSHING;
-#else
+            #else
 	    	return GST_FLOW_WRONG_STATE;
-#endif
+            #endif
         }
         GST_OBJECT_UNLOCK (basesrc);
         
@@ -250,27 +252,24 @@ gst_pjnath_src_class_init (GstpjnathSrcClass *klass)
          * When queue's size = 1, It will cause error somtimes.
          */
         if (pjnathsrc->outbufs->length <= 1) {
-        here:
             g_main_loop_run (pjnathsrc->mainloop);
         }
-        
-        //LOGD(__FILE__, "1: %d", pjnathsrc->outbufs->length);
+    
+        LOCK_QUEUE
         *buffer = g_queue_pop_head (pjnathsrc->outbufs);
-        if (*buffer == NULL) goto here;
-        //LOGD(__FILE__, "2: %d", pjnathsrc->outbufs->length);
-        
+        UNLOCK_QUEUE
+    
         if (*buffer != NULL) {
             //GST_LOG_OBJECT (pjnathsrc, "Got buffer, pushing");
             //puts("Got buffer, pushing");
             return GST_FLOW_OK;
         } else {
-            //GST_LOG_OBJECT (pjnathsrc, "Got interrupting, returning wrong-state");
-            puts("returning wrong-state");
-#if GST_CHECK_VERSION (1,0,0)
+            puts("Got interrupting, returning wrong-state");
+            #if GST_CHECK_VERSION (1,0,0)
 	    	return GST_FLOW_FLUSHING;
-#else
+            #else
 	    	return GST_FLOW_WRONG_STATE;
-#endif
+            #endif
         }
     }
                                     

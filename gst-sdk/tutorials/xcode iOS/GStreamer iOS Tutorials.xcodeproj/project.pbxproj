@@ -11,7 +11,7 @@
 		24BA8B7319B81CC900B47927 /* Login_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7219B81CC900B47927 /* Login_ViewController.m */; };
 		24BA8B7719B8224A00B47927 /* login.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7619B8224A00B47927 /* login.m */; };
 		24BA8B7A19BAABA200B47927 /* xmlparser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7919BAABA200B47927 /* xmlparser.m */; };
-		24BDBCA819BC59FB00D8CAC9 /* receive_video.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBCA719BC59FB00D8CAC9 /* receive_video.m */; };
+		24BDBCA819BC59FB00D8CAC9 /* core.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBCA719BC59FB00D8CAC9 /* core.m */; };
 		24BDBF6A19BCAA6B00D8CAC9 /* gstreamer_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF6919BCAA6B00D8CAC9 /* gstreamer_utils.m */; };
 		24BDBF6D19BCAA9000D8CAC9 /* pjnath_initialize.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF6C19BCAA9000D8CAC9 /* pjnath_initialize.m */; };
 		24BDBF7119BCAC4700D8CAC9 /* stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF7019BCAC4700D8CAC9 /* stream.m */; };
@@ -136,8 +136,8 @@
 		24BA8B7619B8224A00B47927 /* login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = login.m; sourceTree = "<group>"; };
 		24BA8B7919BAABA200B47927 /* xmlparser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xmlparser.m; sourceTree = "<group>"; };
 		24BA8B7B19BAABAD00B47927 /* xmlparser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xmlparser.h; sourceTree = "<group>"; };
-		24BDBCA719BC59FB00D8CAC9 /* receive_video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = receive_video.m; sourceTree = "<group>"; };
-		24BDBCA919BC5A0800D8CAC9 /* receive_video.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = receive_video.h; sourceTree = "<group>"; };
+		24BDBCA719BC59FB00D8CAC9 /* core.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = core.m; sourceTree = "<group>"; };
+		24BDBCA919BC5A0800D8CAC9 /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		24BDBF6919BCAA6B00D8CAC9 /* gstreamer_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gstreamer_utils.m; sourceTree = "<group>"; };
 		24BDBF6B19BCAA7B00D8CAC9 /* gstreamer_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gstreamer_utils.h; sourceTree = "<group>"; };
 		24BDBF6C19BCAA9000D8CAC9 /* pjnath_initialize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pjnath_initialize.m; sourceTree = "<group>"; };
@@ -369,8 +369,8 @@
 		24BDBCA619BC59EA00D8CAC9 /* stream */ = {
 			isa = PBXGroup;
 			children = (
-				24BDBCA719BC59FB00D8CAC9 /* receive_video.m */,
-				24BDBCA919BC5A0800D8CAC9 /* receive_video.h */,
+				24BDBCA719BC59FB00D8CAC9 /* core.m */,
+				24BDBCA919BC5A0800D8CAC9 /* core.h */,
 				24BDBF6919BCAA6B00D8CAC9 /* gstreamer_utils.m */,
 				24BDBF6B19BCAA7B00D8CAC9 /* gstreamer_utils.h */,
 				24BDBF6C19BCAA9000D8CAC9 /* pjnath_initialize.m */,
@@ -942,7 +942,7 @@
 				C6B6126F17395CF2003FC410 /* AppDelegate.m in Sources */,
 				24BDBF7719BCAE9700D8CAC9 /* gstpjnathsink.m in Sources */,
 				24BDBF6D19BCAA9000D8CAC9 /* pjnath_initialize.m in Sources */,
-				24BDBCA819BC59FB00D8CAC9 /* receive_video.m in Sources */,
+				24BDBCA819BC59FB00D8CAC9 /* core.m in Sources */,
 				C6B6127E17395CF2003FC410 /* Gstreamer_ViewController.m in Sources */,
 				24BA8B7319B81CC900B47927 /* Login_ViewController.m in Sources */,
 				24BDBF7519BCAE8500D8CAC9 /* gstpjnath.m in Sources */,

@@ -3,7 +3,7 @@
 #include "gstreamer_utils.h"
 #include "pjnath_initialize.h"
 #include "gstpjnath.h"
-#include "receive_video.h"
+#include "core.h"
 
 #include <sys/socket.h>
 #include <gst/gst.h>
@@ -28,28 +28,14 @@ while(!init_gstreamer_done) usleep(sleepTime)
 /*						GENERAL (MASTER && CLIENT)
  /******************************************************************************/
 
-/*
- *	Must to check pipeline status to set it to paused status.
- */
 static void isReadyToPlayPipeline()
 {
-//	LOGD(__FILE__,"video_sink = %d, native_window = %d",
-//         gstreamer_data->video_sink,
-//         gstreamer_data->native_window);
-//    
-//	if (!gstreamer_data->video_sink ||
-//		!gstreamer_data->native_window) return;
-//    
-//	gst_video_overlay_set_window_handle(GST_VIDEO_OVERLAY (gstreamer_data->video_sink),
-//                                        (guintptr)gstreamer_data->native_window);
-//	GstStateChangeReturn ret = gst_element_set_state(gstreamer_data->pipeline,
-//													 GST_STATE_PAUSED);
-    
 	isPipelineReady = TRUE;
 }
 
 /*
- * New pad for decodebin
+ * New pad for decodebin will get suitable
+ * decoder in ios phone
  */
 static void cb_newpad (GstElement *decodebin,
 					   GstPad     *pad,
@@ -68,7 +54,7 @@ static void cb_newpad (GstElement *decodebin,
 		return;
 	}
     
-	/* check media type */
+	/* Check media type is video */
 	caps = gst_pad_query_caps (pad, NULL);
 	str = gst_caps_get_structure (caps, 0);
 	if (!g_strrstr (gst_structure_get_name (str), "video")) {
@@ -86,7 +72,7 @@ static void cb_newpad (GstElement *decodebin,
 
 /*
  * Initialize gstreamer pipeline
- * */
+ */
 static void  video_receive_init_gstreamer(Holder *data)
 {
 	//WAIT_UNTIL_ANDROID_GSTREAMER_INIT_DONE(1000);
@@ -204,34 +190,29 @@ static void  video_receive_init_gstreamer(Holder *data)
         exit(EXIT_FAILURE);
     }
     
-    
     gst_bin_add_many(GST_BIN (gstreamer_data->pipeline),
 					 pjnathsrc, tee, queue, capsfilter, rtpjitterbuffer,
 					 rtph264depay, decodebin, video_view, NULL);
 
-    //gst_bin_add_many(GST_BIN(gstreamer_data->pipeline), videotestsrc, video_view, NULL);
 	g_signal_connect (decodebin, "pad-added", G_CALLBACK (cb_newpad), video_view);
-    
-	if (!gst_element_link_many(pjnathsrc, tee, NULL)||
+
+	if (!gst_element_link_many(pjnathsrc, tee, NULL) ||
 		!gst_element_link_many(queue, capsfilter, rtpjitterbuffer,
 						       rtph264depay,
-							   decodebin, NULL)){
+							   decodebin, NULL)) {
             puts("Elements could not be linked.\n");
             gst_object_unref(gstreamer_data->pipeline);
             return;
-        }
-
-    //gst_element_link_many(videotestsrc, video_view, NULL);
-    puts("debug 01");
+    }
     
 	/* Link the tee to the queue 1 */
-	if((tee_src_pad_template = gst_element_class_get_pad_template (GST_ELEMENT_GET_CLASS (tee), "src_%u")) == NULL ||
+	if ((tee_src_pad_template = gst_element_class_get_pad_template (GST_ELEMENT_GET_CLASS (tee), "src_%u")) == NULL ||
        (tee_q1_pad = gst_element_request_pad (tee, tee_src_pad_template, NULL, NULL)) == NULL ||
-       (q1_pad = gst_element_get_static_pad (queue, "sink")) == NULL){
+       (q1_pad = gst_element_get_static_pad (queue, "sink")) == NULL) {
 		g_critical("Failed to get pads!");
 	}
     
-	if((retv = gst_pad_link (tee_q1_pad, q1_pad)) != GST_PAD_LINK_OK ){
+	if ((retv = gst_pad_link (tee_q1_pad, q1_pad)) != GST_PAD_LINK_OK ) {
 		g_critical("tee_q1 = %d, q1_pad = %d", tee_q1_pad, q1_pad);
 		g_critical("ret = %d", retv);
 		g_critical("Tee for q1 could not be linked.\n");
@@ -274,79 +255,23 @@ static void  video_receive_init_gstreamer(Holder *data)
     puts("gstreamer done");
 }
 
-/*
- * Auto called when SurfaceView(Android) is created.
- * */
-//void init_video_surface(JNIEnv *env, jobject surface)
-//{
-//	LOGD(__FILE__, "init_video_surface");
-//    
-//	assert(gstreamer_data);
-//	ANativeWindow *new_native_window = (ANativeWindow *)ANativeWindow_fromSurface(env, surface);
-//	assert(new_native_window);
-//    
-//	if(gstreamer_data->native_window){
-//		ANativeWindow_release(gstreamer_data->native_window);
-//		if(gstreamer_data->native_window == new_native_window){
-//			if (gstreamer_data->video_sink){
-//				gst_video_overlay_set_window_handle(GST_VIDEO_OVERLAY(gstreamer_data->video_sink),
-//													(guintptr)NULL);
-//				gst_video_overlay_set_window_handle(GST_VIDEO_OVERLAY(gstreamer_data->video_sink),
-//													(guintptr)NULL);
-//			}
-//			return;
-//		}
-//		else{
-//			gstreamer_data->initialized = FALSE;
-//		}
-//	}
-//    
-//	gstreamer_data->native_window = new_native_window;
-//	isReadyToPlayPipeline();
-//}
-
-/*
- * Auto called when SurfaceView(Android) is destroyed.
- * */
-//void free_video_surface()
-//{
-//	LOGD(__FILE__, "free_video_surface");
-//    
-//	if (!gstreamer_data) return;
-//    
-//	if (gstreamer_data->video_sink) {
-//		gst_video_overlay_set_window_handle(GST_VIDEO_OVERLAY (gstreamer_data->video_sink),
-//                                            (guintptr) NULL);
-//		gst_element_set_state(gstreamer_data->pipeline,
-//                              GST_STATE_READY);
-//	}
-//
-//	if (!gstreamer_data->native_window) return;
-//    
-//	ANativeWindow_release(gstreamer_data->native_window);
-//	gstreamer_data->native_window = NULL;
-//	gstreamer_data->initialized = FALSE;
-//}
-
 /* Will be called from main thread - stream.c */
 void free_receive_video_data ()
 {
-	//LOGD(__FILE__, "free_gstreamer_data");
-    
 //	gst_element_set_state(gstreamer_data->pipeline, GST_STATE_NULL);
 //	gst_object_unref(gstreamer_data->video_sink);
 //	gst_object_unref(gstreamer_data->pipeline);
 //	gst_object_unref(gstreamer_data->bus);
 }
 
-static set_pipeline_to_playing_state()
+static void set_pipeline_to_playing_state()
 {
     puts("set_pipeline_to_playing_state");
     
 	/*
 	 * When master is android, we set pipeline to PLAYING state directly not
 	 * send signal start-streaming to master. So we must wait pipeline ready
-	 * */
+	 */
 	GstStateChangeReturn ret;
     
 	while(!isPipelineReady) usleep(1000);

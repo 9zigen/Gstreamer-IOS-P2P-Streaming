@@ -1,5 +1,5 @@
 #import "GStreamerBackend.h"
-#include "receive_video.h"
+#include "core.h"
 #include <gst/gst.h>
 #include <gst/video/video.h>
 

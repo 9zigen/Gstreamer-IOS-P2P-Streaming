@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/socket.h>
-#include "receive_video.h"
+#include "core.h"
 #include "login.h"
 
 #define BUFFERLEN 200
