@@ -1,5 +1,4 @@
 #include <gst/gst.h>
-#include "stream.h"
 
 void on_state_changed (	GstBus *bus,
                        GstMessage *msg,

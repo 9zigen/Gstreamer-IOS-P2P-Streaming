@@ -1,5 +1,5 @@
 #include <string.h>
-#include "stream.h"
+//#include "stream.h"
 #include "gstpjnathsrc.h"
 
 static GstpjnathSrc *pjnathsrc;

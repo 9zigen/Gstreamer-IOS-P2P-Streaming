@@ -121,7 +121,8 @@ make_video_session (PjnathHolder * videoSessionHolder, GstElement * rtpBin)
   video_view = gst_element_factory_make ("autovideosink", NULL);
 
   /* Set element's properties */
-  g_object_set (pjnathsrc, "icest", videoSessionHolder->icest, NULL);
+  g_object_set (pjnathsrc, "icest",
+      videoSessionHolder->icest, NULL);
   g_object_set (pjnathsrc, "address",
       &videoSessionHolder->rem.def_addr[0], NULL);
   g_object_set (pjnathsrc, "component", 1, NULL);
@@ -237,7 +238,7 @@ init_gstreamer (RtpSessionHolder * rtp_session_holder)
   gst_bin_add (GST_BIN (gstreamer_data->pipeline), rtpBin);
 
   make_video_session (&rtp_session_holder->receive_video_session, rtpBin);
-  //make_video_session (&rtp_session_holder->receive_audio_session, rtpBin);
+    make_video_session (&rtp_session_holder->receive_video_session, rtpBin);
 }
 
 /* Will be called from main thread - stream.c */

@@ -1,7 +1,7 @@
 #include "gstreamer_utils.h"
 #include "core.h"
 
-extern Gstreamer *gstreamer_data;
+extern GstreamerHolder *gstreamer_data;
 
 /* Listen for element's state change */
 void on_state_changed (GstBus *bus, GstMessage *msg, gpointer userdata)

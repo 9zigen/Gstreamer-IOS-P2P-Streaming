@@ -27,7 +27,7 @@ void *app_function (void *userdata)
 	g_main_context_push_thread_default(context);
     
 	/* Create gstreamer data */
-	gstreamer_data = g_new0(Gstreamer, 1);
+	gstreamer_data = g_new0(GstreamerHolder, 1);
     
     puts("Stop here");
     

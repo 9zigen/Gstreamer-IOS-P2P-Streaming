@@ -5,9 +5,10 @@
 #include <pjnath.h>
 #include <gst/gst.h>
 #include <assert.h>
-#include "stream.h"
+#include "pjnath_initialize.h"
 #include "login.h"
 #include "gstpjnath.h"
+#include "core.h"
 #include <unistd.h>
 
 #define STUN_SERVER_ADDRESS "107.23.150.92"
@@ -38,7 +39,7 @@ static void holder_perror(const char *title, pj_status_t status)
 /* Utility: display error message and exit application (usually
  * because of fatal error.
  */
-static void err_exit(const char *title, pj_status_t status, Holder *holder)
+static void err_exit(const char *title, pj_status_t status, PjnathHolder *holder)
 {
     if (status != PJ_SUCCESS) {
         holder_perror(title, status);
@@ -84,7 +85,7 @@ err_exit(#expr, status, holder); \
  * network events). It is invoked by the worker thread.
  */
 static pj_status_t handle_events(unsigned max_msec, unsigned *p_count,
-                                 Holder *holder)
+                                 PjnathHolder *holder)
 {
     enum { MAX_NET_EVENTS = 1 };
     pj_time_val max_timeout = {0, 0};
@@ -150,7 +151,7 @@ static pj_status_t handle_events(unsigned max_msec, unsigned *p_count,
 /*
  * This is the worker thread that polls event in the background.
  */
-static int holder_worker_thread(Holder *holder)
+static int holder_worker_thread(PjnathHolder *holder)
 {
     //PJ_UNUSED_ARG(unused);
 	printf("\nholder_worker_thread\n");
@@ -218,7 +219,7 @@ static void cb_on_ice_complete(pj_ice_strans *ice_st,
 }
 
 /* log callback to write to file */
-static void log_func(int level, const char *data, int len, Holder *holder)
+static void log_func(int level, const char *data, int len, PjnathHolder *holder)
 {
     pj_log_write(level, data, len);
     if (holder->log_fhnd) {
@@ -232,7 +233,7 @@ static void log_func(int level, const char *data, int len, Holder *holder)
  * once (and only once) during application initialization sequence by
  * main().
  */
-static pj_status_t holder_init(Holder *holder)
+static pj_status_t holder_init(PjnathHolder *holder)
 {
 	printf("holder_init");
     pj_status_t status;
@@ -364,7 +365,7 @@ static pj_status_t holder_init(Holder *holder)
 /*
  * Create ICE stream transport instance, invoked from the menu.
  */
-static void holder_create_instance(Holder *holder)
+static void holder_create_instance(PjnathHolder *holder)
 {
 	printf("holder_create_instance");
     pj_ice_strans_cb icecb;
@@ -398,7 +399,7 @@ static void holder_create_instance(Holder *holder)
 }
 
 /* Utility to nullify parsed remote info */
-static void reset_rem_info(Holder *holder)
+static void reset_rem_info(PjnathHolder *holder)
 {
     pj_bzero(&holder->rem, sizeof(holder->rem));
 }
@@ -407,7 +408,7 @@ static void reset_rem_info(Holder *holder)
 /*
  * Destroy ICE stream transport instance, invoked from the menu.
  */
-static void holder_destroy_instance(Holder *holder)
+static void holder_destroy_instance(PjnathHolder *holder)
 {
     if (holder->icest == NULL) {
         PJ_LOG(1,(THIS_FILE, "Error: No ICE instance, create it first"));
@@ -426,7 +427,7 @@ static void holder_destroy_instance(Holder *holder)
 /*
  * Create ICE session, invoked from the menu.
  */
-static void holder_init_session(unsigned rolechar, Holder *holder)
+static void holder_init_session(unsigned rolechar, PjnathHolder *holder)
 {
 	printf("holder_init_session");
     pj_ice_sess_role role = (pj_tolower((pj_uint8_t)rolechar)=='o' ?
@@ -457,7 +458,7 @@ static void holder_init_session(unsigned rolechar, Holder *holder)
 /*
  * Stop/destroy ICE session, invoked from the menu.
  */
-static void holder_stop_session(Holder *holder)
+static void holder_stop_session(PjnathHolder *holder)
 {
     pj_status_t status;
     
@@ -519,7 +520,7 @@ static int print_cand(char buffer[], unsigned maxlen,
 /*
  * Encode ICE information in SDP.
  */
-static int encode_session(char buffer[], unsigned maxlen, Holder *holder)
+static int encode_session(char buffer[], unsigned maxlen, PjnathHolder *holder)
 {
     char *p = buffer;
     unsigned comp;
@@ -606,7 +607,7 @@ static int encode_session(char buffer[], unsigned maxlen, Holder *holder)
  * Show information contained in the ICE stream transport. This is
  * invoked from the menu.
  */
-static void holder_show_ice(Holder *holder)
+static void holder_show_ice(PjnathHolder *holder)
 {
 	printf("holder_show_ice");
     static char buffer[ICE_INFOR_SIZE];
@@ -682,7 +683,7 @@ static void holder_show_ice(Holder *holder)
  * Input and parse SDP from the remote (containing remote's ICE information)
  * and save it to global variables.
  */
-static void holder_input_remote(const char *ice_sdp, Holder *holder)
+static void holder_input_remote(const char *ice_sdp, PjnathHolder *holder)
 {
 	printf("holder_input_remote");
     char linebuf[80];
@@ -945,7 +946,7 @@ on_error:
 /*
  * Start ICE negotiation! This function is invoked from the menu.
  */
-static void holder_start_nego(Holder *holder)
+static void holder_start_nego(PjnathHolder *holder)
 {
 	printf("holder_start_nego");
     pj_str_t rufrag, rpwd;
@@ -984,7 +985,7 @@ static void holder_start_nego(Holder *holder)
 /*
  * Send application data to remote agent.
  */
-static int holder_send_data (unsigned comp_id, const char *data, Holder *holder)
+static int holder_send_data (unsigned comp_id, const char *data, PjnathHolder *holder)
 {
     pj_status_t status;
     
@@ -1024,7 +1025,7 @@ static int holder_send_data (unsigned comp_id, const char *data, Holder *holder)
     }
 }
 
-static void get_local_stun_info(Holder *data)
+static void get_local_stun_info(PjnathHolder *data)
 {
 	printf("get_local_stun_info");
 	holder_create_instance(data);
@@ -1040,7 +1041,7 @@ static void get_local_stun_info(Holder *data)
 	holder_show_ice(data);
 }
 
-void establish_stun_with_master (Holder *data, char *masterId)
+void establish_stun_with_master (PjnathHolder *data, char *masterId)
 {
 	puts("+++++++++++establish_stun_with_master");
 	char *recBuf;
@@ -1110,7 +1111,7 @@ void establish_stun_with_master (Holder *data, char *masterId)
 	free(acception);
 }
 
-void establish_stun_with_client (Holder *data)
+void establish_stun_with_client (PjnathHolder *data)
 {
 //	printf("establish_stun_with_client");
 //	char *destination;

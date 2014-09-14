@@ -21,10 +21,8 @@ G_BEGIN_DECLS
 (G_TYPE_CHECK_CLASS_TYPE((klass),GST_TYPE_PJNATH_SINK))
 
 typedef struct _GstPjnathSink GstPjnathSink;
-
 struct _GstPjnathSink
 {
-    
     GstBaseSink parent;
     GstPad *sinkpad;
     
