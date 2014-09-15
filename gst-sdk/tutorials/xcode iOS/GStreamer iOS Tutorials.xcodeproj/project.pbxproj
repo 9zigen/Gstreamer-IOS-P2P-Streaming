@@ -1539,7 +1539,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					/Users/cxphong/Desktop/pjnath_lib/include,
+					/Users/cxphong/Desktop/WORKING/pjnath_lib/include,
 					"${SDK_DIR}/usr/include/libxml2",
 					"\"~/Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework/Headers\"",
 				);
@@ -1669,7 +1669,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					/Users/cxphong/Desktop/pjnath_lib/include,
+					/Users/cxphong/Desktop/WORKING/pjnath_lib/include,
 					"${SDK_DIR}/usr/include/libxml2",
 					"\"~/Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework/Headers\"",
 				);

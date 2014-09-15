@@ -13,7 +13,7 @@ UIView *ios_ui_video_view;
 static gboolean isPipelineReady;
 
 //static PjnathHolder *data_for_rpi;
-static RtpSessionHolder *rpi_session_holder;
+static RtpSever *rpi_rtp_server;
 extern char *peerIdRpi;
 
 /* Not using now */
@@ -88,6 +88,72 @@ setup_ghost_source (GstElement * source, GstBin * bin)
 }
 
 /**
+ * make_audio_session:
+ *
+ * Create audio session then join into rtpBin
+ */
+static void *
+make_audio_session (PjnathHolder * audioSessionHolder, GstElement * rtpBin)
+{
+  GstElement *pjnathsrc;
+  GstElement *capsfilter;
+  GstElement *rtpspeexdepay;
+  GstElement *speexdec;
+  GstElement *autoaudiosink;
+  GstPad *srcpad;
+  GstPad *sinkpad;
+  GstPadLinkReturn retv;
+
+  pjnathsrc = gst_element_factory_make ("pjnathsrc", NULL);
+  capsfilter = gst_element_factory_make ("capsfilter", NULL);
+  rtpspeexdepay = gst_element_factory_make ("rtpspeexdepay", NULL);
+  speexdec = gst_element_factory_make ("speexdec", NULL);
+  autoaudiosink = gst_element_factory_make ("autoaudiosink", NULL);
+
+  g_object_set (pjnathsrc, "icest", audioSessionHolder->icest, NULL);
+  g_object_set (pjnathsrc, "address",
+      &audioSessionHolder->rem.def_addr[0], NULL);
+  g_object_set (pjnathsrc, "component", 1, NULL);
+  g_object_set (pjnathsrc, "do-timestamp", TRUE, NULL);
+  g_object_set (pjnathsrc, "blocksize", 4096, NULL);
+  g_object_set (capsfilter, "caps",
+      gst_caps_from_string
+      ("application/x-rtp, media=(string)audio, clock-rate=(int)44100, encoding-name=(string)SPEEX, encoding-params=(string)1, payload=(int)110, ssrc=(uint)1647313534, timestamp-offset=(uint)2918479805, seqnum-offset=(uint)26294"),
+      NULL);
+
+
+  if (!pjnathsrc || !capsfilter || !rtpspeexdepay || !speexdec
+      || !autoaudiosink) {
+    g_printerr ("Not all elements could be created.\n");
+    exit (EXIT_FAILURE);
+  }
+
+  gst_bin_add_many (GST_BIN (gstreamer_data->pipeline), pjnathsrc, capsfilter,
+      rtpspeexdepay, speexdec, autoaudiosink, NULL);
+  if (gst_element_link_many (pjnathsrc, capsfilter, NULL)
+      || gst_element_link_many (rtpspeexdepay, speexdec, autoaudiosink,
+          NULL) != TRUE) {
+    g_printerr ("Elements could not be linked.\n");
+    gst_object_unref (gstreamer_data->pipeline);
+    exit (EXIT_FAILURE);
+  }
+
+  /* Link capsfilter->rtpbin_sink */
+  sinkpad = gst_element_get_request_pad (rtpBin, "recv_rtp_sink_%u");
+  srcpad = gst_element_get_static_pad (capsfilter, "src");
+  if (gst_pad_link (srcpad, sinkpad) != GST_PAD_LINK_OK) {
+    puts ("Failed to link audio capsfilter to rtpbin");
+  }
+
+  gst_object_unref (srcpad);
+  gst_object_unref (sinkpad);
+
+  /* Link rtpBin to rtpspeexdepay */
+  g_signal_connect (rtpBin, "pad-added", G_CALLBACK (on_pad_added),
+      rtpspeexdepay);
+}
+
+/**
  * make_video_session:
  * Create video session then join into rtpBin
  */
@@ -132,10 +198,10 @@ make_video_session (PjnathHolder * videoSessionHolder, GstElement * rtpBin)
           "media=(string)video,clock-rate=(int)90000,"
           "encoding-name=(string)H264"), NULL);
   g_object_set (video_view, "sync", FALSE, NULL);
-    /**
-     * Set leaky to 2(downstream) to ignore old(don't need anymore) frames
-     * to make smooth display.
-     */
+  /**
+   * Set leaky to 2(downstream) to ignore old(don't need anymore) frames
+   * to make smooth display.
+   */
   g_object_set (queue, "max-size-buffers", 10, NULL);
   g_object_set (queue, "leaky", 0, NULL);
 
@@ -149,7 +215,6 @@ make_video_session (PjnathHolder * videoSessionHolder, GstElement * rtpBin)
       !gst_element_link_many (videoscale, videoconvert, video_view, NULL)) {
     puts ("Elements could not be linked.\n");
     gst_object_unref (gstreamer_data->pipeline);
-    exit (EXIT_FAILURE);
   }
 
   /* Link the tee to the queue 1 */
@@ -168,7 +233,6 @@ make_video_session (PjnathHolder * videoSessionHolder, GstElement * rtpBin)
     g_critical ("ret = %d", retv);
     g_critical ("Tee for q1 could not be linked.\n");
     gst_object_unref (gstreamer_data->pipeline);
-    exit (EXIT_FAILURE);
   }
 
   gst_object_unref (q1_pad);
@@ -183,32 +247,24 @@ make_video_session (PjnathHolder * videoSessionHolder, GstElement * rtpBin)
   gst_object_unref (srcpad);
   gst_object_unref (sinkpad);
 
-  /* Add signals rtpbin & decodebin */
+  /* Link rtpBin to rtph264depay */
   g_signal_connect (rtpBin, "pad-added", G_CALLBACK (on_pad_added),
       rtph264depay);
+  /* Link decobin to videoscale */
   g_signal_connect (decodebin, "pad-added", G_CALLBACK (cb_newpad), videoscale);
 
   /**
-   * Set pipeline to READY & link videosink to ios
-   * surfaceview
+   * Link videosink to ios Surfaceview
    */
   gst_element_set_state (gstreamer_data->pipeline, GST_STATE_READY);
   gstreamer_data->video_sink =
-      gst_bin_get_by_interface (gstreamer_data->pipeline,
+      gst_bin_get_by_interface (GST_BIN (gstreamer_data->pipeline),
       GST_TYPE_VIDEO_OVERLAY);
-  if (!gstreamer_data->video_sink)
-    exit (EXIT_FAILURE);
+  if (!gstreamer_data->video_sink) {
+    g_critical ("Couldn't get video_sink");
+  }
   gst_video_overlay_set_window_handle (GST_VIDEO_OVERLAY
       (gstreamer_data->video_sink), (guintptr) (id) ios_ui_video_view);
-
-  /* Listen to the bus */
-  gstreamer_data->bus = gst_element_get_bus (gstreamer_data->pipeline);
-  gst_bus_enable_sync_message_emission (gstreamer_data->bus);
-  gst_bus_add_signal_watch (gstreamer_data->bus);
-  g_signal_connect (G_OBJECT (gstreamer_data->bus),
-      "message::error", (GCallback) on_error, NULL);
-  g_signal_connect (G_OBJECT (gstreamer_data->bus),
-      "message::state-changed", (GCallback) on_state_changed, gstreamer_data);
 }
 
 /**
@@ -218,9 +274,9 @@ make_video_session (PjnathHolder * videoSessionHolder, GstElement * rtpBin)
  * Returns: void
  */
 static void
-init_gstreamer (RtpSessionHolder * rtp_session_holder)
+init_gstreamer (RtpSever * rtp_server)
 {
-  puts ("video_receive_init_gstreamer");
+  puts ("init_gstreamer");
   GstElement *rtpBin;
 
   /* Initialize Gstreamer library 1.0 & pjnath-gstreamer plugin */
@@ -236,8 +292,17 @@ init_gstreamer (RtpSessionHolder * rtp_session_holder)
   //g_object_set (rtpBin, "latency", 200, "do-retransmission", TRUE, NULL);
   gst_bin_add (GST_BIN (gstreamer_data->pipeline), rtpBin);
 
-  make_video_session (&rtp_session_holder->receive_video_session, rtpBin);
-  //make_video_session (&rtp_session_holder->receive_audio_session, rtpBin);
+  make_video_session (&rtp_server->receive_video_session, rtpBin);
+  //make_audio_session (&rtp_session_holder->receive_audio_session, rtpBin);
+
+  /* Listen to the bus */
+  gstreamer_data->bus = gst_element_get_bus (gstreamer_data->pipeline);
+  gst_bus_enable_sync_message_emission (gstreamer_data->bus);
+  gst_bus_add_signal_watch (gstreamer_data->bus);
+  g_signal_connect (G_OBJECT (gstreamer_data->bus),
+      "message::error", (GCallback) on_error, NULL);
+  g_signal_connect (G_OBJECT (gstreamer_data->bus),
+      "message::state-changed", (GCallback) on_state_changed, gstreamer_data);
 }
 
 /* Will be called from main thread - stream.c */
@@ -263,8 +328,7 @@ set_pipeline_to_playing_state ()
 
   ret = gst_element_set_state (gstreamer_data->pipeline, GST_STATE_PLAYING);
   if (ret == GST_STATE_CHANGE_FAILURE) {
-    puts ("Set pipeline to PLAYING");
-    exit (EXIT_FAILURE);
+    puts ("Failed set pipeline to PLAYING");
   }
 
   puts ("set_pipeline_to_playing_state done");
@@ -521,14 +585,16 @@ level_1 (gpointer data)
   isPipelineReady = FALSE;
 
   /* ICE to Rpi */
-  rpi_session_holder = g_new0 (RtpSessionHolder, 1);
-  establish_stun_with_master (&rpi_session_holder->receive_video_session,
+  rpi_rtp_server = g_new0 (RtpSever, 1);
+  establish_stun_with_master (&rpi_rtp_server->receive_video_session,
       peerIdRpi);
+  //establish_stun_with_master (&rpi_rtp_server->receive_audio_session,
+  //    peerIdRpi);
   puts ("\n\n\n\n+++++++++++ice rpi init done");
 
   /* Start play streaming */
   puts ("+++++++++++peer Rpi gstreamer");
-  init_gstreamer (rpi_session_holder);
+  init_gstreamer (rpi_rtp_server);
 
   start_streaming (peerIdRpi);
 
