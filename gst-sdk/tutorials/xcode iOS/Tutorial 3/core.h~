@@ -52,12 +52,13 @@ struct _PjnathHolder
 };
 
 /* Hold pjnath information for each session */
-typedef struct _RtpSessionHolder RtpSessionHolder;
-struct _RtpSessionHolder
+typedef struct _RtpSever RtpSever;
+struct _RtpSever
 {
   PjnathHolder receive_video_session;
   PjnathHolder receive_audio_session;
   PjnathHolder send_audio_session;
+  char *session_name;
 };
 
 typedef struct _GstreamerHolder GstreamerHolder;

@@ -18,8 +18,7 @@
 
 @ end @ implementation Login_ViewController - (id) initWithNibName:(NSString
     *)
-     nibNameOrNil
-     bundle:(NSBundle *)
+nibNameOrNil bundle:(NSBundle *)
     nibBundleOrNil
 {
 self =[super initWithNibName: nibNameOrNil bundle:nibBundleOrNil];

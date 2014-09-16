@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Login_ViewController : UIViewController {
-    __weak IBOutlet UITextField *usernameTF;
-    __weak IBOutlet UITextField *passwordTF;
-    __weak IBOutlet UIButton *loginBT;
+@ interface Login_ViewController:UIViewController {
+  __weak IBOutlet UITextField *usernameTF;
+  __weak IBOutlet UITextField *passwordTF;
+  __weak IBOutlet UIButton *loginBT;
 }
 
-- (IBAction)login_to_server:(id)sender;
-- (IBAction)textFieldReturn:(id)sender;
+-(IBAction) login_to_server:(id) sender;
+-(IBAction) textFieldReturn:(id) sender;
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2455520219C7FBFB00536FA0 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2455520119C7FBFB00536FA0 /* libstdc++.6.dylib */; };
 		245C9BC719C2A57300F6406E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 245C9BC619C2A57300F6406E /* libxml2.dylib */; };
 		24BA8B7319B81CC900B47927 /* Login_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7219B81CC900B47927 /* Login_ViewController.m */; };
 		24BA8B7719B8224A00B47927 /* login.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7619B8224A00B47927 /* login.m */; };
@@ -17,7 +18,7 @@
 		24BDBF7119BCAC4700D8CAC9 /* stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF7019BCAC4700D8CAC9 /* stream.m */; };
 		24BDBF7519BCAE8500D8CAC9 /* gstpjnath.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF7419BCAE8500D8CAC9 /* gstpjnath.m */; };
 		24BDBF7719BCAE9700D8CAC9 /* gstpjnathsink.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF7619BCAE9700D8CAC9 /* gstpjnathsink.m */; };
-		24BDBF7919BCAEA800D8CAC9 /* gdtpjnathsrc.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF7819BCAEA800D8CAC9 /* gdtpjnathsrc.m */; };
+		24BDBF7919BCAEA800D8CAC9 /* gstpjnathsrc.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBF7819BCAEA800D8CAC9 /* gstpjnathsrc.m */; };
 		C67B40CD172EBEA3008359CC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67B40CC172EBEA3008359CC /* UIKit.framework */; };
 		C67B40CF172EBEA3008359CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67B40CE172EBEA3008359CC /* Foundation.framework */; };
 		C67B40D1172EBEA3008359CC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67B40D0172EBEA3008359CC /* CoreGraphics.framework */; };
@@ -129,6 +130,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2455520119C7FBFB00536FA0 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		245C9BC619C2A57300F6406E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		24BA8B7119B81CC900B47927 /* Login_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login_ViewController.h; sourceTree = "<group>"; };
 		24BA8B7219B81CC900B47927 /* Login_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login_ViewController.m; sourceTree = "<group>"; };
@@ -146,7 +148,7 @@
 		24BDBF7019BCAC4700D8CAC9 /* stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = stream.m; sourceTree = "<group>"; };
 		24BDBF7419BCAE8500D8CAC9 /* gstpjnath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gstpjnath.m; sourceTree = "<group>"; };
 		24BDBF7619BCAE9700D8CAC9 /* gstpjnathsink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gstpjnathsink.m; sourceTree = "<group>"; };
-		24BDBF7819BCAEA800D8CAC9 /* gdtpjnathsrc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gdtpjnathsrc.m; sourceTree = "<group>"; };
+		24BDBF7819BCAEA800D8CAC9 /* gstpjnathsrc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gstpjnathsrc.m; sourceTree = "<group>"; };
 		24BDBF7A19BCAEB200D8CAC9 /* gstpjnath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gstpjnath.h; sourceTree = "<group>"; };
 		24BDBF7B19BCAEBD00D8CAC9 /* gstpjnathsink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gstpjnathsink.h; sourceTree = "<group>"; };
 		24BDBF7C19BCAEC900D8CAC9 /* gstpjnathsrc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gstpjnathsrc.h; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2455520219C7FBFB00536FA0 /* libstdc++.6.dylib in Frameworks */,
 				245C9BC719C2A57300F6406E /* libxml2.dylib in Frameworks */,
 				C6B6126017395CF2003FC410 /* UIKit.framework in Frameworks */,
 				C6B6126117395CF2003FC410 /* Foundation.framework in Frameworks */,
@@ -386,7 +389,7 @@
 			children = (
 				24BDBF7419BCAE8500D8CAC9 /* gstpjnath.m */,
 				24BDBF7619BCAE9700D8CAC9 /* gstpjnathsink.m */,
-				24BDBF7819BCAEA800D8CAC9 /* gdtpjnathsrc.m */,
+				24BDBF7819BCAEA800D8CAC9 /* gstpjnathsrc.m */,
 				24BDBF7A19BCAEB200D8CAC9 /* gstpjnath.h */,
 				24BDBF7B19BCAEBD00D8CAC9 /* gstpjnathsink.h */,
 				24BDBF7C19BCAEC900D8CAC9 /* gstpjnathsrc.h */,
@@ -422,6 +425,7 @@
 		C67B40CB172EBEA3008359CC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2455520119C7FBFB00536FA0 /* libstdc++.6.dylib */,
 				245C9BC619C2A57300F6406E /* libxml2.dylib */,
 				C67B40CC172EBEA3008359CC /* UIKit.framework */,
 				C67B40CE172EBEA3008359CC /* Foundation.framework */,
@@ -775,6 +779,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0500;
+				TargetAttributes = {
+					C6B6125E17395CF1003FC410 = {
+						DevelopmentTeam = 3K7G9X4S5C;
+					};
+				};
 			};
 			buildConfigurationList = C67B40C2172EBDF1008359CC /* Build configuration list for PBXProject "GStreamer iOS Tutorials" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -948,7 +957,7 @@
 				24BDBF7519BCAE8500D8CAC9 /* gstpjnath.m in Sources */,
 				24BA8B7A19BAABA200B47927 /* xmlparser.m in Sources */,
 				24BDBF7119BCAC4700D8CAC9 /* stream.m in Sources */,
-				24BDBF7919BCAEA800D8CAC9 /* gdtpjnathsrc.m in Sources */,
+				24BDBF7919BCAEA800D8CAC9 /* gstpjnathsrc.m in Sources */,
 				C6B6128B17395D4F003FC410 /* GStreamerBackend.m in Sources */,
 				24BDBF6A19BCAA6B00D8CAC9 /* gstreamer_utils.m in Sources */,
 				C6EB857C173A4D9500C3953D /* EaglUIVIew.m in Sources */,
@@ -1519,7 +1528,9 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"~/Library/Developer/GStreamer/iPhone.sdk\"",
@@ -1547,21 +1558,18 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(SDKROOT)",
-					"\"$(SRCROOT)/../../../../pjnath_lib/lib\"",
 					"$(inherited)",
+					/Users/cxphong/Desktop/WORKING/pjnath_lib_iphone5/lib,
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
-					"-I/Users/cxphong/Desktop/pjnath_lib/include",
+					"-I/Users/cxphong/Desktop/WORKING/pjnath_lib_iphone5/include",
 					"-DPJ_AUTOCONF=1",
 					"-O2",
-					"-m32",
-					"-mios-simulator-version-min=5.0",
-					"-DPJ_SDK_NAME=\"iPhoneSimulator7.1.sdk\"",
-					"-arch",
-					i386,
+					"-Wno-unused-label",
+					"-DPJ_SDK_NAME=\"iPhoneOS7.1.sdk\"",
 					"-isysroot",
-					/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk,
+					/Applications/XCode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk,
 					"-DPJ_IS_BIG_ENDIAN=0",
 					"-DPJ_IS_LITTLE_ENDIAN=1",
 				);
@@ -1590,25 +1598,10 @@
 					QuartzCore,
 					"-framework",
 					AssetsLibrary,
-					"-lpjsua2-arm-apple-darwin9",
+					"-L/Users/cxphong/Desktop/WORKING/pjnath_lib_iphone5/lib",
 					"-lstdc++",
-					"-lpjsua-arm-apple-darwin9",
-					"-lpjsip-ua-arm-apple-darwin9",
-					"-lpjsip-simple-arm-apple-darwin9",
-					"-lpjsip-arm-apple-darwin9",
-					"-lpjmedia-codec-arm-apple-darwin9",
-					"-lpjmedia-arm-apple-darwin9",
-					"-lpjmedia-videodev-arm-apple-darwin9",
-					"-lpjmedia-audiodev-arm-apple-darwin9",
-					"-lpjmedia-arm-apple-darwin9",
 					"-lpjnath-arm-apple-darwin9",
 					"-lpjlib-util-arm-apple-darwin9",
-					"-lsrtp-arm-apple-darwin9",
-					"-lresample-arm-apple-darwin9",
-					"-lgsmcodec-arm-apple-darwin9",
-					"-lspeex-arm-apple-darwin9",
-					"-lilbccodec-arm-apple-darwin9",
-					"-lg7221codec-arm-apple-darwin9",
 					"-lpj-arm-apple-darwin9",
 					"-lm",
 					"-lpthread",
@@ -1634,11 +1627,36 @@
 					CoreVideo,
 					"-framework",
 					CoreMedia,
+					"-lpthread",
+					"-framework",
+					CoreAudio,
+					"-framework",
+					CoreFoundation,
+					"-framework",
+					AudioToolbox,
+					"-framework",
+					CFNetwork,
+					"-framework",
+					UIKit,
+					"-framework",
+					UIKit,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					CoreMedia,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1655,6 +1673,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1677,20 +1696,18 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(SDKROOT)",
-					"\"$(SRCROOT)/../../../../pjnath_lib/lib\"",
 					"$(inherited)",
+					/Users/cxphong/Desktop/WORKING/pjnath_lib_iphone5/lib,
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
-					"-I/Users/cxphong/Desktop/pjnath_lib/include",
+					"-I/Users/cxphong/Desktop/WORKING/pjnath_lib_iphone5/include",
 					"-DPJ_AUTOCONF=1",
 					"-O2",
-					"-m32",
-					"-mios-simulator-version-min=5.0",
-					"-DPJ_SDK_NAME=\"iPhoneSimulator7.1.sdk\"",
-					"-arch",
-					i386,
+					"-Wno-unused-label",
+					"-DPJ_SDK_NAME=\"iPhoneOS7.1.sdk\"",
 					"-isysroot",
-					/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk,
+					/Applications/XCode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk,
 					"-DPJ_IS_BIG_ENDIAN=0",
 					"-DPJ_IS_LITTLE_ENDIAN=1",
 				);
@@ -1719,25 +1736,10 @@
 					QuartzCore,
 					"-framework",
 					AssetsLibrary,
-					"-lpjsua2-arm-apple-darwin9",
+					"-L/Users/cxphong/Desktop/WORKING/pjnath_lib_iphone5/lib",
 					"-lstdc++",
-					"-lpjsua-arm-apple-darwin9",
-					"-lpjsip-ua-arm-apple-darwin9",
-					"-lpjsip-simple-arm-apple-darwin9",
-					"-lpjsip-arm-apple-darwin9",
-					"-lpjmedia-codec-arm-apple-darwin9",
-					"-lpjmedia-arm-apple-darwin9",
-					"-lpjmedia-videodev-arm-apple-darwin9",
-					"-lpjmedia-audiodev-arm-apple-darwin9",
-					"-lpjmedia-arm-apple-darwin9",
 					"-lpjnath-arm-apple-darwin9",
 					"-lpjlib-util-arm-apple-darwin9",
-					"-lsrtp-arm-apple-darwin9",
-					"-lresample-arm-apple-darwin9",
-					"-lgsmcodec-arm-apple-darwin9",
-					"-lspeex-arm-apple-darwin9",
-					"-lilbccodec-arm-apple-darwin9",
-					"-lg7221codec-arm-apple-darwin9",
 					"-lpj-arm-apple-darwin9",
 					"-lm",
 					"-lpthread",
@@ -1763,12 +1765,37 @@
 					CoreVideo,
 					"-framework",
 					CoreMedia,
+					"-lpthread",
+					"-framework",
+					CoreAudio,
+					"-framework",
+					CoreFoundation,
+					"-framework",
+					AudioToolbox,
+					"-framework",
+					CFNetwork,
+					"-framework",
+					UIKit,
+					"-framework",
+					UIKit,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					CoreMedia,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

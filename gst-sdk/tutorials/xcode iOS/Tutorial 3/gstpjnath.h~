@@ -7,4 +7,4 @@
 #define PLUGIN_NAME "pjnath"
 #endif
 
-gboolean plugin_init (GstPlugin * plugin);
+gboolean plugin_init (GstPlugin *plugin);

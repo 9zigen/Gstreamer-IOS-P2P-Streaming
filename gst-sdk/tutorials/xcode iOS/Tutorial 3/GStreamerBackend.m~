@@ -25,10 +25,8 @@ GST_DEBUG_CATEGORY_STATIC (debug_category);
  */
 
 -(id) init:(id)
-     uiDelegate
-     videoView:(UIView *)
-    video_view
-{
+uiDelegate videoView:(UIView *)
+    video_view {
   puts ("uiDelegate videoView");
   if (self =[super init]) {
     self->ui_delegate = uiDelegate;
@@ -41,7 +39,8 @@ GST_DEBUG_CATEGORY_STATIC (debug_category);
     /* Start the bus monitoring task */
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT,
             0), ^ {
-        app_function ();}
+          app_function ();
+        }
     );
   }
 
