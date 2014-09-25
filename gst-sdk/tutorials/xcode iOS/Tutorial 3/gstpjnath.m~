@@ -4,19 +4,16 @@
 #define PACKAGE "PJNATH GSTREAMER"
 #define PACKAGE_NAME "PJNATH GSTREAMER"
 
-gboolean
-plugin_init (GstPlugin * plugin)
+gboolean plugin_init(GstPlugin * plugin)
 {
 
-  if (!gst_element_register (plugin, "pjnathsink",
-          GST_RANK_NONE, GST_TYPE_PJNATH_SINK))
-    return FALSE;
+	if (!gst_element_register(plugin, "pjnathsink", GST_RANK_NONE, GST_TYPE_PJNATH_SINK))
+		return FALSE;
 
-  if (!gst_element_register (plugin, "pjnathsrc",
-          GST_RANK_NONE, GST_TYPE_PJNATH_SRC))
-    return FALSE;
+	if (!gst_element_register(plugin, "pjnathsrc", GST_RANK_NONE, GST_TYPE_PJNATH_SRC))
+		return FALSE;
 
-  return TRUE;
+	return TRUE;
 }
 
 /*GST_PLUGIN_DEFINE (

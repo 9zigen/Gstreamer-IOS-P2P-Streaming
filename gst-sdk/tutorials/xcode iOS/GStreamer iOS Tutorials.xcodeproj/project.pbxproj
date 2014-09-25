@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2437B08D19CF128600DC0125 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2437B08C19CF128600DC0125 /* UIKit.framework */; };
+		2437B08F19CF129300DC0125 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2437B08E19CF129300DC0125 /* Foundation.framework */; };
+		2437B09119CF129B00DC0125 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2437B09019CF129B00DC0125 /* CoreGraphics.framework */; };
+		2437B09319CF12B500DC0125 /* GStreamer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2437B09219CF12B500DC0125 /* GStreamer.framework */; };
+		2437B09419CF1E3E00DC0125 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 245C9BC619C2A57300F6406E /* libxml2.dylib */; };
+		2437B09919D0012F00DC0125 /* ins_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 2437B09619D0012F00DC0125 /* ins_debug.c */; };
 		2455520219C7FBFB00536FA0 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2455520119C7FBFB00536FA0 /* libstdc++.6.dylib */; };
-		245C9BC719C2A57300F6406E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 245C9BC619C2A57300F6406E /* libxml2.dylib */; };
 		24BA8B7319B81CC900B47927 /* Login_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7219B81CC900B47927 /* Login_ViewController.m */; };
 		24BA8B7719B8224A00B47927 /* login.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7619B8224A00B47927 /* login.m */; };
 		24BA8B7A19BAABA200B47927 /* xmlparser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA8B7919BAABA200B47927 /* xmlparser.m */; };
@@ -89,10 +94,6 @@
 		C68C5296174D1427007A0729 /* fonts.conf in Resources */ = {isa = PBXBuildFile; fileRef = C68C5293174D1427007A0729 /* fonts.conf */; };
 		C68C5297174D1427007A0729 /* gst_ios_init.m in Sources */ = {isa = PBXBuildFile; fileRef = C68C5294174D1427007A0729 /* gst_ios_init.m */; };
 		C68C5298174D1427007A0729 /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C68C5295174D1427007A0729 /* Ubuntu-R.ttf */; };
-		C6B6126017395CF2003FC410 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67B40CC172EBEA3008359CC /* UIKit.framework */; };
-		C6B6126117395CF2003FC410 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67B40CE172EBEA3008359CC /* Foundation.framework */; };
-		C6B6126217395CF2003FC410 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67B40D0172EBEA3008359CC /* CoreGraphics.framework */; };
-		C6B6126317395CF2003FC410 /* GStreamer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67B40D2172EBEA3008359CC /* GStreamer.framework */; };
 		C6B6126917395CF2003FC410 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C6B6126717395CF2003FC410 /* InfoPlist.strings */; };
 		C6B6126B17395CF2003FC410 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B6126A17395CF2003FC410 /* main.m */; };
 		C6B6126F17395CF2003FC410 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B6126E17395CF2003FC410 /* AppDelegate.m */; };
@@ -130,6 +131,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2437B08C19CF128600DC0125 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2437B08E19CF129300DC0125 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2437B09019CF129B00DC0125 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2437B09219CF12B500DC0125 /* GStreamer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GStreamer.framework; path = ../../../../../../Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework; sourceTree = "<group>"; };
+		2437B09619D0012F00DC0125 /* ins_debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ins_debug.c; path = ../../../../../C_API/ins_debug.c; sourceTree = "<group>"; };
+		2437B09819D0012F00DC0125 /* ins_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ins_debug.h; path = ../../../../../C_API/ins_debug.h; sourceTree = "<group>"; };
 		2455520119C7FBFB00536FA0 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		245C9BC619C2A57300F6406E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		24BA8B7119B81CC900B47927 /* Login_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login_ViewController.h; sourceTree = "<group>"; };
@@ -328,12 +335,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2437B09419CF1E3E00DC0125 /* libxml2.dylib in Frameworks */,
+				2437B09319CF12B500DC0125 /* GStreamer.framework in Frameworks */,
+				2437B09119CF129B00DC0125 /* CoreGraphics.framework in Frameworks */,
+				2437B08F19CF129300DC0125 /* Foundation.framework in Frameworks */,
+				2437B08D19CF128600DC0125 /* UIKit.framework in Frameworks */,
 				2455520219C7FBFB00536FA0 /* libstdc++.6.dylib in Frameworks */,
-				245C9BC719C2A57300F6406E /* libxml2.dylib in Frameworks */,
-				C6B6126017395CF2003FC410 /* UIKit.framework in Frameworks */,
-				C6B6126117395CF2003FC410 /* Foundation.framework in Frameworks */,
-				C6B6126217395CF2003FC410 /* CoreGraphics.framework in Frameworks */,
-				C6B6126317395CF2003FC410 /* GStreamer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +358,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2437B09519D000ED00DC0125 /* C APIs */ = {
+			isa = PBXGroup;
+			children = (
+				2437B09619D0012F00DC0125 /* ins_debug.c */,
+				2437B09819D0012F00DC0125 /* ins_debug.h */,
+			);
+			name = "C APIs";
+			sourceTree = "<group>";
+		};
 		24BA8B7419B8209100B47927 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,6 +441,10 @@
 		C67B40CB172EBEA3008359CC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2437B09219CF12B500DC0125 /* GStreamer.framework */,
+				2437B09019CF129B00DC0125 /* CoreGraphics.framework */,
+				2437B08E19CF129300DC0125 /* Foundation.framework */,
+				2437B08C19CF128600DC0125 /* UIKit.framework */,
 				2455520119C7FBFB00536FA0 /* libstdc++.6.dylib */,
 				245C9BC619C2A57300F6406E /* libxml2.dylib */,
 				C67B40CC172EBEA3008359CC /* UIKit.framework */,
@@ -582,6 +602,7 @@
 		C6B6126417395CF2003FC410 /* Tutorial 3 */ = {
 			isa = PBXGroup;
 			children = (
+				2437B09519D000ED00DC0125 /* C APIs */,
 				24BDBF7319BCAE6600D8CAC9 /* gstpjnath */,
 				24BDBCA619BC59EA00D8CAC9 /* stream */,
 				24BA8B7819BAAB8300B47927 /* utils */,
@@ -960,6 +981,7 @@
 				24BDBF7919BCAEA800D8CAC9 /* gstpjnathsrc.m in Sources */,
 				C6B6128B17395D4F003FC410 /* GStreamerBackend.m in Sources */,
 				24BDBF6A19BCAA6B00D8CAC9 /* gstreamer_utils.m in Sources */,
+				2437B09919D0012F00DC0125 /* ins_debug.c in Sources */,
 				C6EB857C173A4D9500C3953D /* EaglUIVIew.m in Sources */,
 				C68C528B174D13EB007A0729 /* gst_ios_init.m in Sources */,
 			);
@@ -1290,7 +1312,7 @@
 				HEADER_SEARCH_PATHS = "\"~/Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework/Headers\"";
 				INFOPLIST_FILE = "Tutorial 2/Tutorial 2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-lresolv",
 					"-lstdc++",
@@ -1320,6 +1342,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1382,6 +1405,7 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1533,8 +1557,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"~/Library/Developer/GStreamer/iPhone.sdk\"",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+					"$(USER_LIBRARY_DIR)/Developer/GStreamer/iPhone.sdk",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+					/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks,
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1553,9 +1579,11 @@
 					/Users/cxphong/Desktop/WORKING/pjnath_lib/include,
 					"${SDK_DIR}/usr/include/libxml2",
 					"\"~/Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework/Headers\"",
+					/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/,
+					/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/UIKit.framework,
 				);
 				INFOPLIST_FILE = "Tutorial 3/Tutorial 3-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(SDKROOT)",
 					"$(inherited)",
@@ -1677,8 +1705,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"~/Library/Developer/GStreamer/iPhone.sdk\"",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+					"$(USER_LIBRARY_DIR)/Developer/GStreamer/iPhone.sdk",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+					/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks,
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1691,9 +1721,11 @@
 					/Users/cxphong/Desktop/WORKING/pjnath_lib/include,
 					"${SDK_DIR}/usr/include/libxml2",
 					"\"~/Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework/Headers\"",
+					/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/,
+					/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/UIKit.framework,
 				);
 				INFOPLIST_FILE = "Tutorial 3/Tutorial 3-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(SDKROOT)",
 					"$(inherited)",

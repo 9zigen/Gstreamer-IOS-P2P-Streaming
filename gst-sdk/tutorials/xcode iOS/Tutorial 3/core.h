@@ -6,11 +6,21 @@
 #include <pjlib.h>
 #include <pjlib-util.h>
 #include <pjnath.h>
+#include "gstpjnathsrc.h"
+
+/* List available function */
+#define RECEIVE_VIDEO_SESSION
+#define RECEIVE_AUDIO_SESSION
+//#define SEND_AUDIO_SESSION
+//#define TCP_CONTROLLER
 
 /* PJNATH data holder */
 typedef struct _PjnathHolder PjnathHolder;
 struct _PjnathHolder
 {
+  /* pjnathsrc for rtp session */
+  GstElement *pjnathsrc;
+    
   /* Command line options are stored here */
   struct options
   {
@@ -59,6 +69,7 @@ struct _RtpSever
   PjnathHolder receive_audio_session;
   PjnathHolder send_audio_session;
   char *session_name;
+  char *master_device_id;
 };
 
 typedef struct _GstreamerHolder GstreamerHolder;

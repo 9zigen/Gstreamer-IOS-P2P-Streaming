@@ -10,29 +10,41 @@
 	<string>GStreamer iOS Tutorials</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>EB4B55B6-AD7C-4901-945F-FA61CE827EE8</key>
+		<key>85E6F5333448D7A90AB14673B6B252CAF78EF000</key>
 		<string>https://github.com/cxp1991/Gstreamer-IOS-P2P-Streaming.git</string>
+		<key>F35E61CAA84FCDFFDB9797C7DC621F7E3547B094</key>
+		<string>https://github.com/cxp1991/C-API.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>gst-sdk/tutorials/xcode iOS/GStreamer iOS Tutorials.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>EB4B55B6-AD7C-4901-945F-FA61CE827EE8</key>
+		<key>85E6F5333448D7A90AB14673B6B252CAF78EF000</key>
 		<string>../../../../..</string>
+		<key>F35E61CAA84FCDFFDB9797C7DC621F7E3547B094</key>
+		<string>../../../../../../C_API</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/cxp1991/Gstreamer-IOS-P2P-Streaming.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>EB4B55B6-AD7C-4901-945F-FA61CE827EE8</string>
+	<string>85E6F5333448D7A90AB14673B6B252CAF78EF000</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>EB4B55B6-AD7C-4901-945F-FA61CE827EE8</string>
+			<string>F35E61CAA84FCDFFDB9797C7DC621F7E3547B094</string>
+			<key>IDESourceControlWCCName</key>
+			<string>C_API</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>85E6F5333448D7A90AB14673B6B252CAF78EF000</string>
 			<key>IDESourceControlWCCName</key>
 			<string>gst-sdk-tutorials</string>
 		</dict>

@@ -3,7 +3,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @ implementation EaglUIView + (Class) layerClass {
-  return[CAEAGLLayer class];
+	return[CAEAGLLayer class];
 }
 
 @end

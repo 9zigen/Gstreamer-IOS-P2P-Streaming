@@ -49,6 +49,7 @@ GType gst_pjnath_src_get_type (void);
 void gst_cb_on_rx_data (pj_ice_strans * ice_st,
     unsigned comp_id,
     void *pkt, pj_size_t size,
-    const pj_sockaddr_t * src_addr, unsigned src_addr_len);
+    const pj_sockaddr_t * src_addr,
+    unsigned src_addr_len);
 G_END_DECLS
 #endif // _GSTpjnathSRC_H
