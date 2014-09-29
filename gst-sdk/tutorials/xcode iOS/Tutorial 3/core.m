@@ -30,6 +30,12 @@ while(!init_gstreamer_done) usleep(sleepTime)
  *						GENERAL (MASTER && CLIENT)
  ******************************************************************************/
 
+void free_resource()
+{
+    free(rpi_rtp_server);
+    free(peerIdRpi);
+}
+
 static void isReadyToPlayPipeline()
 {
 	isPipelineReady = TRUE;
@@ -301,8 +307,9 @@ static void init_gstreamer(RtpSever * rtp_server)
 				   GST_VERSION_MINOR,
 				   PLUGIN_NAME,
 				   "Interactive UDP connectivity establishment",
-				   plugin_init, "0.1.4", "LGPL", "libpjnath", "http://ispioneer.com", "");
-
+				   plugin_init, "0.1.4", "LGPL", "libpjnath",
+                   "http://ispioneer.com", "");
+    
 	gstreamer_data->pipeline = gst_pipeline_new(NULL);
 	rtpBin = gst_element_factory_make("rtpbin", NULL);
 
