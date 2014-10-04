@@ -129,8 +129,9 @@ void
 gst_cb_on_rx_data(pj_ice_strans * ice_st,
 		  unsigned comp_id, void *pkt, pj_size_t size, const pj_sockaddr_t * src_addr, unsigned src_addr_len)
 {
+    //g_print("\nsize = %d\n", size);
 	GstElement *pjnathsrc = *(GstElement **) pj_ice_strans_get_user_data(ice_st);
-	g_printf("\n pjnathsrc = %d\n", pjnathsrc);
+	//g_printf("\n pjnathsrc = %d\n", pjnathsrc);
 	g_assert(pjnathsrc);
 
 	/* Get source pad of pjnathsrc element */

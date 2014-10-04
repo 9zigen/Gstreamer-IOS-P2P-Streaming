@@ -254,9 +254,9 @@ void parse_xml_node_content(const char *docString, const char *node, char *out)
 	xmlChar *docStr;
 	int i;
 
-	docStr = (xmlChar *) calloc(1000, sizeof(xmlChar));
-	keyword = (xmlChar *) calloc(1000, sizeof(xmlChar));
-	xpath = (xmlChar *) calloc(1000, sizeof(xmlChar));
+	docStr = (xmlChar *) calloc(2000, sizeof(xmlChar));
+	keyword = (xmlChar *) calloc(2000, sizeof(xmlChar));
+	xpath = (xmlChar *) calloc(2000, sizeof(xmlChar));
 	doc = (xmlDocPtr) calloc(1, sizeof(xmlDocPtr));
 
 	printf("\n  doc = %d \n", doc);

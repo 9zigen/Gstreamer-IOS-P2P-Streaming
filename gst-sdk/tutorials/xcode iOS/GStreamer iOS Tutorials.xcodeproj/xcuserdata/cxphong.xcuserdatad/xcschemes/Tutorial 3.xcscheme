@@ -61,7 +61,7 @@
          <EnvironmentVariable
             key = "GST_DEBUG"
             value = "3"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>

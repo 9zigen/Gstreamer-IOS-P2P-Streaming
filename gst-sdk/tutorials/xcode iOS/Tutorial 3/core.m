@@ -26,6 +26,21 @@ static PjnathHolder *data_for_android_client;	// connect to android level 2
 #define WAIT_UNTIL_ANDROID_GSTREAMER_INIT_DONE(sleepTime) \
 while(!init_gstreamer_done) usleep(sleepTime)
 
+/*
+ Our pipeline:
+                                     .------.
+ 1. Receive audio                    |      |
+              pjnathsrc->capsfilter->|      |->rtpspeexdepay->speexdec->audioconvert->audioresample->osxaudiosink
+                                     |rtpbin|
+ 2. Receive video                    |      |
+  pjnathsrc->tee->queue->capsfilter->|      |->rtph264depay->decodebin->videoconvert->videoscale->audovideosink
+                                     |      |
+                                     .------.
+ 3. Send audio
+ osxaudiosrc->audioconvert->audioresample->speexenc->rtpspeexpay->rtpbin->pjnathsink
+ 
+ */
+
 /******************************************************************************
  *						GENERAL (MASTER && CLIENT)
  ******************************************************************************/
@@ -93,23 +108,74 @@ static void setup_ghost_source(GstElement * source, GstBin * bin)
 }
 
 /**
- * make_audio_session:
+ * make_send_audio_session():
  *
- * Create audio session then join into rtpBin
+ * Create send audio session then join into rtpBin.
  */
-static void *make_audio_session(PjnathHolder * audioSessionHolder, GstElement * rtpBin)
+static void *make_send_audio_session(PjnathHolder * holder, GstElement * rtpBin)
 {
-	g_print("\n make_audio_session\n");
+    g_print("\n make_send_audio_session\n");
+    
+    GstElement *osxaudiosrc;
+    GstElement *audioconvert;
+    GstElement *audioresample;
+    GstElement *speexenc;
+    GstElement *rtpspeexpay;
+    GstElement *pipeline;
+    gboolean ret;
+    
+    osxaudiosrc = gst_element_factory_make("osxaudiosrc", NULL);
+    audioconvert = gst_element_factory_make("audioconvert", NULL);
+    audioresample = gst_element_factory_make("audioresample", NULL);
+    speexenc = gst_element_factory_make("speexenc", NULL);
+    rtpspeexpay = gst_element_factory_make("rtpspeexpay", NULL);
+    holder->pjnathsink = gst_element_factory_make("pjnathsink", NULL);
+    pipeline = gst_element_factory_make("pipeline", NULL);
+   
+    g_assert(osxaudiosrc);
+    g_assert(audioconvert);
+    g_assert(audioresample);
+    g_assert(speexenc);
+    g_assert(rtpspeexpay);
+    g_assert(holder->pjnathsink);
+    g_assert(pipeline);
+    
+    /* Set elements's properties */
+    g_object_set(holder->pjnathsink, "icest", holder->icest, NULL);
+    g_object_set(holder->pjnathsink, "address", &holder->rem.def_addr[0], NULL);
+    g_object_set(holder->pjnathsink, "component", 1, NULL);
+    g_object_set(holder->pjnathsink, "pool", holder->pool, NULL);
+    g_object_set(holder->pjnathsink, "sync", FALSE, NULL);
+
+    gst_bin_add_many(GST_BIN(pipeline), osxaudiosrc, audioconvert,
+                     audioresample, speexenc,
+                     rtpspeexpay, holder->pjnathsink, NULL);
+    
+    ret = gst_element_link_many(osxaudiosrc, audioconvert, audioresample, speexenc, rtpspeexpay, holder->pjnathsink, NULL);
+    g_assert(ret);
+    
+    g_assert(gst_element_set_state(pipeline, GST_STATE_PLAYING) != GST_STATE_CHANGE_FAILURE);
+}
+
+/**
+ * make_receive_audio_session:
+ *
+ * Create audio session then join into rtpbin.
+ */
+static void *make_receive_audio_session(PjnathHolder * audioSessionHolder, GstElement * rtpBin)
+{
+	g_print("\n make_receive_audio_session\n");
 
 	GstElement *capsfilter;
 	GstElement *rtpspeexdepay;
 	GstElement *speexdec;
 	GstElement *audioconvert;
 	GstElement *audioresample;
-	GstElement *autoaudiosink;
+	GstElement *osxaudiosink;
 	GstPad *srcpad;
 	GstPad *sinkpad;
 	GstPadLinkReturn retv;
+    GstElement *identity;
 
 	audioSessionHolder->pjnathsrc = gst_element_factory_make("pjnathsrc", NULL);
 	capsfilter = gst_element_factory_make("capsfilter", NULL);
@@ -117,7 +183,8 @@ static void *make_audio_session(PjnathHolder * audioSessionHolder, GstElement * 
 	speexdec = gst_element_factory_make("speexdec", NULL);
 	audioconvert = gst_element_factory_make("audioconvert", NULL);
 	audioresample = gst_element_factory_make("audioresample", NULL);
-	autoaudiosink = gst_element_factory_make("autoaudiosink", NULL);
+	osxaudiosink = gst_element_factory_make("osxaudiosink", NULL);
+    identity = gst_element_factory_make("identity", NULL);
 
 	g_assert(audioSessionHolder->pjnathsrc);
 	g_assert(capsfilter);
@@ -125,7 +192,8 @@ static void *make_audio_session(PjnathHolder * audioSessionHolder, GstElement * 
 	g_assert(speexdec);
 	g_assert(audioconvert);
 	g_assert(audioresample);
-	g_assert(autoaudiosink);
+	g_assert(osxaudiosink);
+    g_assert(identity);
 
 	g_object_set(audioSessionHolder->pjnathsrc, "icest", audioSessionHolder->icest, NULL);
 	g_object_set(audioSessionHolder->pjnathsrc, "address", &audioSessionHolder->rem.def_addr[0], NULL);
@@ -136,20 +204,20 @@ static void *make_audio_session(PjnathHolder * audioSessionHolder, GstElement * 
 		     gst_caps_from_string
 		     ("application/x-rtp, media=(string)audio, clock-rate=(int)44100,"
 		      "encoding-name=(string)SPEEX, encoding-params=(string)1,"
-		      "payload=(int)110, ssrc=(uint)1647313534,"
-		      "timestamp-offset=(uint)2918479805, seqnum-offset=(uint)26294"), NULL);
+		      "payload=(int)110"), NULL);
+    g_object_set(identity, "dump", TRUE, NULL);
 
 	gst_bin_add_many(GST_BIN(gstreamer_data->pipeline),
 			 audioSessionHolder->pjnathsrc, capsfilter,
-			 rtpspeexdepay, speexdec, audioconvert, audioresample, autoaudiosink, NULL);
+			 rtpspeexdepay, speexdec, audioconvert, audioresample, identity, osxaudiosink, NULL);
 
 	if (gst_element_link_many(audioSessionHolder->pjnathsrc, capsfilter, NULL) != TRUE) {
 		g_printerr("1. Elements could not be linked.\n");
 		gst_object_unref(gstreamer_data->pipeline);
 		exit(EXIT_FAILURE);
 	}
-
-	if (gst_element_link_many(rtpspeexdepay, speexdec, audioconvert, audioresample, autoaudiosink, NULL) != TRUE) {
+    
+	if (gst_element_link_many(rtpspeexdepay, speexdec, audioconvert, audioresample, osxaudiosink, NULL) != TRUE) {
 		g_printerr("2. Elements could not be linked.\n");
 		gst_object_unref(gstreamer_data->pipeline);
 		exit(EXIT_FAILURE);
@@ -299,7 +367,7 @@ static void init_gstreamer(RtpSever * rtp_server)
 
 	GstElement *rtpBin;
 
-	setenv("GST_DEBUG", "*:3", 1);
+	setenv("GST_DEBUG", "4", 1);
 
 	/* Initialize Gstreamer library 1.0 & pjnath-gstreamer plugin */
 	gst_init(NULL, NULL);
@@ -320,7 +388,11 @@ static void init_gstreamer(RtpSever * rtp_server)
 #endif
 
 #ifdef RECEIVE_AUDIO_SESSION
-	make_audio_session(&rtp_server->receive_audio_session, rtpBin);
+	make_receive_audio_session(&rtp_server->receive_audio_session, rtpBin);
+#endif
+    
+#ifdef SEND_AUDIO_SESSION
+    make_send_audio_session(&rtp_server->send_audio_session, rtpBin);
 #endif
 
 //     puts("debug 10.1");
@@ -361,10 +433,11 @@ static void set_pipeline_to_playing_state()
 	ret = gst_element_set_state(gstreamer_data->pipeline, GST_STATE_PLAYING);
 
 	if (ret == GST_STATE_CHANGE_FAILURE) {
-		g_printerr("Failed set pipeline to PLAYING");
+		g_printerr("\nFailed set pipeline to PLAYING\n");
+        exit(EXIT_FAILURE);
 	}
 
-	g_print("set_pipeline_to_playing_state done");
+	g_print("\nset_pipeline_to_playing_state done\n");
 }
 
 /**
@@ -578,6 +651,13 @@ void master_ownner_listener()
 	} while (mLevel == 1);
 }
 
+/**
+ * shaking_with_master():
+ *
+ * Send local ICE infor & get remote ICE infor from Rpi (master)
+ *
+ * @rtp_server: Pjnath holder for remote ICE
+ */
 static void shaking_with_master(RtpSever *rtp_server)
 {
 	puts("SHAKING_WITH_MASTER");
@@ -587,19 +667,24 @@ static void shaking_with_master(RtpSever *rtp_server)
 	char *destination;
 	char *acception;
 
-	recBuf = (char *)calloc(1024, sizeof(char));
-	sendBuf = (char *)calloc(1024, sizeof(char));
-	destination = (char *)calloc(1024, sizeof(char));
-	acception = (char *)calloc(1024, sizeof(char));
+	recBuf = (char *)calloc(2000, sizeof(char));
+	sendBuf = (char *)calloc(2000, sizeof(char));
+	destination = (char *)calloc(2000, sizeof(char));
+	acception = (char *)calloc(2000, sizeof(char));
 
 	/* Send local ICE */
 	sprintf(sendBuf, "<REQUESTCONN>"
 		"<from>%s</from>"
 		"<to>%s</to>"
-		"<message><video>%s</video><audio>%s</audio></message>"
+		"<message>"
+        "<receive-video>%s</receive-video>"
+        "<receive-audio>%s</receive-audio>"
+        "<send-audio>%s</send-audio>"
+        "</message>"
 		"</REQUESTCONN>", username, peerIdRpi,
             rtp_server->receive_video_session.local_info,
-            rtp_server->receive_audio_session.local_info);
+            rtp_server->receive_audio_session.local_info,
+            rtp_server->send_audio_session.local_info);
 
 	send(global_socket, sendBuf, strlen(sendBuf), 0);
 	printf("\n\n\n\n  username = %s \n", username);
@@ -607,7 +692,7 @@ static void shaking_with_master(RtpSever *rtp_server)
 
 	/* Receive remote ICE */
 	while (1) {
-		if (recv(global_socket, recBuf, 1024, 0)) {
+		if (recv(global_socket, recBuf, 2000, 0)) {
 			printf("+++++++++++receive: %s\n", recBuf);
 
 			/* Destination is me? */
@@ -622,19 +707,25 @@ static void shaking_with_master(RtpSever *rtp_server)
 			if (strcmp(acception, "true"))
 				continue;
 
-            /* Get client video ice information */
+            /* Get client receive-video ice information */
             rtp_server->receive_video_session.remote_info = (char *)calloc(1024, sizeof(char));
-            parse_xml_node_content(recBuf, "video", rtp_server->receive_video_session.remote_info);
+            parse_xml_node_content(recBuf, "send-video", rtp_server->receive_video_session.remote_info);
             printf("\nvideo = %s\n", rtp_server->receive_video_session.remote_info );
         
-            /* Get client audio ice infomation */
+            /* Get client receive-audio ice infomation */
             rtp_server->receive_audio_session.remote_info = (char *)calloc(1024, sizeof(char));
-            parse_xml_node_content(recBuf, "audio", rtp_server->receive_audio_session.remote_info);
+            parse_xml_node_content(recBuf, "send-audio", rtp_server->receive_audio_session.remote_info);
             printf("\naudio = %s\n", rtp_server->receive_audio_session.remote_info );
+            
+            /* Get client send-audio ice infomation */
+            rtp_server->send_audio_session.remote_info = (char *)calloc(1024, sizeof(char));
+            parse_xml_node_content(recBuf, "receive-audio", rtp_server->send_audio_session.remote_info);
+            printf("\naudio = %s\n", rtp_server->send_audio_session.remote_info );
             
             /* Start negotiate */
             start_negotiate(&rtp_server->receive_video_session);
             start_negotiate(&rtp_server->receive_audio_session);
+            start_negotiate(&rtp_server->send_audio_session);
             
 			break;
 		} else {
@@ -666,7 +757,7 @@ gpointer level_1(gpointer data)
 		}
 	}
 
-	/* Gwt local ICEs */
+	/* Get local ICEs */
 #ifdef RECEIVE_VIDEO_SESSION
 	establish_stun_with_master(&rpi_rtp_server->receive_video_session);
 #endif
@@ -674,20 +765,22 @@ gpointer level_1(gpointer data)
 #ifdef RECEIVE_AUDIO_SESSION
 	establish_stun_with_master(&rpi_rtp_server->receive_audio_session);
 #endif
+    
+#ifdef SEND_AUDIO_SESSION
+    establish_stun_with_master(&rpi_rtp_server->send_audio_session);
+#endif
 
-#if defined(RECEIVE_VIDEO_SESSION) && defined(RECEIVE_AUDIO_SESSION)
+#if defined(RECEIVE_VIDEO_SESSION) && defined(RECEIVE_AUDIO_SESSION) && defined(SEND_AUDIO_SESSION)
 	shaking_with_master(rpi_rtp_server);
 #endif
 
 	puts("\n\n\n\n+++++++++++ice rpi init done");
 
 	/* Start play streaming */
-	puts("+++++++++++peer Rpi gstreamer");
 	init_gstreamer(rpi_rtp_server);
 
 	start_streaming(peerIdRpi);
-
-	puts("done");
+    
 	/* Start master listener */
 	//master_ownner_listener();
 }

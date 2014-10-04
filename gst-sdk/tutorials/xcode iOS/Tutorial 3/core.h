@@ -11,8 +11,8 @@
 /* List available function */
 #define RECEIVE_VIDEO_SESSION
 #define RECEIVE_AUDIO_SESSION
-//#define SEND_AUDIO_SESSION
-//#define TCP_CONTROLLER
+#define SEND_AUDIO_SESSION
+#define TCP_CONTROLLER
 
 /* PJNATH data holder */
 typedef struct _PjnathHolder PjnathHolder;
@@ -20,6 +20,7 @@ struct _PjnathHolder
 {
   /* pjnathsrc for rtp session */
   GstElement *pjnathsrc;
+  GstElement *pjnathsink;
     
   /* Command line options are stored here */
   struct options
@@ -80,8 +81,9 @@ struct _GstreamerHolder
   GstBus *bus;
   GMainContext *context;
 };
-
 extern GstreamerHolder *gstreamer_data;
+
+/* Surfaceview for display video */
 extern UIView *ios_ui_video_view;
 
 gpointer level_1 (gpointer data);

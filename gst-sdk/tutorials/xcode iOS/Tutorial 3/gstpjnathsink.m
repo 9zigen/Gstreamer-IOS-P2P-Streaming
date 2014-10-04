@@ -109,45 +109,48 @@ static void icedemo_perror(const char *title, pj_status_t status)
 
 static GstFlowReturn gst_pjnath_sink_render(GstBaseSink * basesink, GstBuffer * buffer)
 {
-//        //LOGD(__FILE__, "gst_pjnath_sink_render");
-//        pj_thread_desc desc;
-//        pj_thread_t *this_thread;
-//        pj_status_t  rc;
-//        GstMapInfo info;
-//        
-//        GstPjnathSink *pjnathsink = GST_PJNATH_SINK (basesink);
-//        
-//        /* Register pjnath thread */
-//        if (!pj_thread_is_registered()) {
-//            puts("\n\n Register thread \n\n");
-//            
-////            if(pthread_key_create(&desc, NULL)){
-////                printf("\npthread_key_create failed\n"
-////                     "error code = %s\n", strerror( errno ));
-////            }
-//            
-//            pj_bzero(desc, sizeof(desc));
-//            rc = pj_thread_register("thread", desc, &this_thread);
-//            if(rc != PJ_SUCCESS) {
-//                puts("\nRegister thread failed!\n");
-//                printf("\nError code = %s\n", strerror(rc-120000));
-//            }
-//        }
-//        
-//        gst_buffer_map (buffer, &info, GST_MAP_READ);
-//        rc = pj_ice_strans_sendto(pjnathsink->icest, pjnathsink->comp_id,
-//                                  (gchar *) info.data, info.size, &pjnathsink->def_addr,
-//                                  pj_sockaddr_get_len(pjnathsink->def_addr));
-//        
-//        if (rc != PJ_SUCCESS) {
-//            //LOGD(__FILE__, "send failed");
-//        }
-//        else {
-//            //LOGD(__FILE__, "send: %d", GST_BUFFER_SIZE (buffer));
-//        }
-//        
-//        gst_buffer_unmap (buffer, &info);
-//        return GST_FLOW_OK;
+    //printf("\ngst_pjnath_sink_render\n");
+    GstMapInfo info;
+    pj_thread_desc desc;
+    pj_thread_t *this_thread;
+    pj_status_t  rc;
+    
+    GstPjnathSink *pjnathsink = GST_PJNATH_SINK (basesink);
+    
+    /* Register pjnath thread */
+    if (!pj_thread_is_registered()) {
+        printf("\n\n Register thread \n\n");
+        
+        if(pthread_key_create(&desc, NULL)){
+            printf("\npthread_key_create failed\n"
+                   "error code = %s\n", strerror( errno ));
+        }
+        
+        pj_bzero(desc, sizeof(desc));
+        rc = pj_thread_register("thread", desc, &this_thread);
+        if(rc != PJ_SUCCESS) {
+            printf("\nRegister thread failed!\n");
+            printf("\nError code = %s\n", strerror(rc-120000));
+        }
+    }
+    
+    
+    gst_buffer_map (buffer, &info, GST_MAP_READ);
+    
+    rc = pj_ice_strans_sendto (pjnathsink->icest, pjnathsink->comp_id,
+                               (gchar *) info.data, info.size, &pjnathsink->def_addr,
+                               pj_sockaddr_get_len(pjnathsink->def_addr));
+    
+    if (rc != PJ_SUCCESS)
+    {
+        printf ("\nSend fail!\n");
+    }
+    
+    //printf ("pjsip - sent = %d\n", info.size);
+    
+    gst_buffer_unmap (buffer, &info);
+    
+    return GST_FLOW_OK;
 }
 
 static void gst_pjnath_sink_dispose(GObject * object)
